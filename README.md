@@ -15,7 +15,7 @@
   - 爬取新闻和数据
 
 ## Checkpoint
-    ddl 9月15日，为了避免鸽子，了解项目进度，***各小组三天一个checkpoint***。将进度汇报/schedule 使用 markdown 文档编写，存放于对应文件夹即可。
+ddl 9月15日，为了避免鸽子，了解项目进度，***各小组三天一个checkpoint***。将进度汇报/schedule 使用 markdown 文档编写，存放于对应文件夹即可。
 
 ## Agenda
   - [x] 2019/8/15：完成分组和初步 schedule 制定。

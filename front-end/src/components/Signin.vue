@@ -42,7 +42,7 @@ export default {
     },
     postData(){
       //把account，password发送给后端,并获得返回状态字
-      this.$http.get('get.php',{params : {account:this.account,password:this.password}}).then(function(res){
+      this.$http.get('/get.php',{params : {account:this.account,password:this.password}}).then(function(res){
       this.statue = res.body;
       },function(res){
       console.log(res.status);

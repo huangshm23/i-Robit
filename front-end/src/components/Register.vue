@@ -27,7 +27,7 @@ export default {
   jiaoyanbiaoji1:false,
   jiaoyanbiaoji2:false,
   biaoji:0,
-  statue:-1,
+  status:-1,
   account:'',
   password:'',
   msg: 'register'
@@ -41,10 +41,10 @@ export default {
   //0：注册成功，跳转个人主页
   //1:账号已存在
   this.postData()
-      if (this.statue == 0) {
+      if (this.status == 0) {
 
       }
-      else if (this.statue == 1) {
+      else if (this.status == 1) {
 
       }
       else {
@@ -54,8 +54,8 @@ export default {
   postData(){
   //把account，password发送给后端,并获得返回状态字
   console.log("hello");
-  this.$http.get('/get.php',{params : {account:this.account,password:this.password}}).then(function(res){
-  this.statue = res.body;
+  this.$http.get('http://127.0.0.1:8000/users/register/',{params : {account:this.account,password:this.password}}).then(function(res){
+  this.status = res.body;
   },function(err){
   console.log(err);
   });

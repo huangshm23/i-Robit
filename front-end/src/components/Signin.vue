@@ -23,7 +23,7 @@ export default {
       jiaoyanbiaoji1:false,
       jiaoyanbiaoji2:false,
       biaoji:0,
-      statue:-1,
+      status:-1,
       account:'',
       password:'',
       msg: 'signin'
@@ -38,23 +38,23 @@ export default {
       //0：账号密码正确,跳转到组合推荐页
       //1:账号不存在
       //2：密码错误
-      if (this.statue == 0) {
+      if (this.status == 0) {
 
       }
-      else if (this.statue == 1) {
+      else if (this.status == 1) {
 
       }
-      else if (this.statue == 2) {
+      else if (this.status == 2) {
 
       }
       else {
-      
+
       }
     },
     postData(){
       //把account，password发送给后端,并获得返回状态字
-      this.$http.get('/get.php',{params : {account:this.account,password:this.password}}).then(function(res){
-      this.statue = res.body;
+      this.$http.get('http://127.0.0.1:8000/users/login',{params : {account:this.account,password:this.password}}).then(function(res){
+      this.status = res.body;
       },function(res){
       console.log(res.status);
       });

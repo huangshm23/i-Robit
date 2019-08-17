@@ -22,8 +22,8 @@
   name: 'Signin',
   data () {
   return {
-  jiaoyanbiaoji1:true,
-  jiaoyanbiaoji2:true,
+  jiaoyanbiaoji1:false,
+  jiaoyanbiaoji2:false,
   biaoji:0,
   statue:-1,
   account:'',

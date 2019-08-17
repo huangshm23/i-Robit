@@ -17,19 +17,19 @@ def login_view(request):
             username = request.POST.get('username')
             passsword = request.POST.get('password')
             user = authenticate(username=username,passsword=passsword)
-            
+            #match:0-匹配成功;1-账号不存在;2-密码错误
             if user:#验证用户名密码是否匹配
                 login(request,user)
-                match = True
+                match = 0
             else:
-                match = False
+                match = 2
             #前端要求的数据：用户名、密码、是否匹配
             context = {'match':match}
             return JsonResponse(context) 
         else:
             pass
     else:   #不是POST请求就返回一个空表单
-        context = {'match':False}
+        context = {'match':1}
         return JsonResponse(context)
 
 def logout_view(request):
@@ -52,9 +52,9 @@ def register_view(request):
             password=password)
             if authenticated_user is not None:
                 login(request,authenticated_user)
-                context = {'status':True}
+                context = {'status':0}  # 0:成功
                 return JsonResponse(context)
-    context = {'status':False}
+    context = {'status':1}  #1:账号已存在
     return JsonResponse(context)
 
 

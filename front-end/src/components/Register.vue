@@ -23,24 +23,24 @@
 export default {
   name: 'Register',
   data () {
-  return {
-  jiaoyanbiaoji1:false,
-  jiaoyanbiaoji2:false,
-  biaoji:0,
-  status:-1,
-  account:'',
-  password:'',
-  msg: 'register'
+    return {
+    jiaoyanbiaoji1:false,
+    jiaoyanbiaoji2:false,
+    biaoji:0,
+    status:-1,
+    account:'',
+    password:'',
+    msg: 'register'
   }
   },
   methods:{
   submit:function(){
-  console.log(this.biaoji);
   //把account，password发送给后端
   //后端返回状态字
   //0：注册成功，跳转个人主页
   //1:账号已存在
   this.postData()
+      console.log(this.status);
       if (this.status == 0) {
 
       }

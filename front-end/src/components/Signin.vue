@@ -31,13 +31,13 @@ export default {
   },
   methods:{
     submit:function(){
-      console.log(this.biaoji);
       this.postData();
       //把account，password发送给后端
       //后端返回状态字
       //0：账号密码正确,跳转到组合推荐页
       //1:账号不存在
       //2：密码错误
+      console.log(this.status);
       if (this.status == 0) {
 
       }

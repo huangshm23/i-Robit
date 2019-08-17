@@ -13,7 +13,7 @@
               <router-link :to="{ path: '/signin' }">登录</router-link>
               <br>
                 <div v-if="biaoji == 2">提交</div>
-                <div v-else="">待提交</div>
+                <div v-else>待提交</div>
               </div>
   </div>
 </template>

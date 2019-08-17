@@ -12,8 +12,7 @@
               <div v-if="!jiaoyanbiaoji2">6到8位数字</div>
               <router-link :to="{ path: '/signin' }">登录</router-link>
               <br>
-                <div v-if="biaoji == 2" @click="submit">
-                  </div>
+                <div v-if="biaoji == 2">提交</div>
                 <div v-else="">待提交</div>
               </div>
   </div>
@@ -40,7 +39,7 @@ export default {
   //后端返回状态字
   //0：注册成功，跳转个人主页
   //1:账号已存在
-  this.postData();
+  this.postData()
   },
   postData(){
   //把account，password发送给后端,并获得返回状态字

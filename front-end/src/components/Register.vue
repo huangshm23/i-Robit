@@ -41,6 +41,15 @@ export default {
   //0：注册成功，跳转个人主页
   //1:账号已存在
   this.postData()
+      if (this.statue == 0) {
+
+      }
+      else if (this.statue == 1) {
+
+      }
+      else {
+      
+      }
   },
   postData(){
   //把account，password发送给后端,并获得返回状态字

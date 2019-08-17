@@ -20,7 +20,7 @@
 </template>
 
 <script>
-  export default {
+export default {
   name: 'Register',
   data () {
   return {
@@ -72,8 +72,8 @@
   if(!a && this.jiaoyanbiaoji2)
   this.biaoji++;
   if(this.biaoji>0 && a && !this.jiaoyanbiaoji2)
-  this.biaoji--;
-  console.log(this.jiaoyanbiaoji2);
+      this.biaoji--;
+    console.log(this.jiaoyanbiaoji2);
   }
   }
   }

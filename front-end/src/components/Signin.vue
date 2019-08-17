@@ -18,10 +18,10 @@
 </template>
 
 <script>
-  export default {
+export default {
   name: 'Signin',
   data () {
-  return {
+    return {
   jiaoyanbiaoji1:true,
   jiaoyanbiaoji2:true,
   biaoji:0,
@@ -61,22 +61,21 @@
       if(this.biaoji>0 && a && !this.jiaoyanbiaoji1)
         this.biaoji--;
       console.log(this.jiaoyanbiaoji1);
-    },
-    jiaoyan2:function(){
+  },
+  jiaoyan2:function(){
       //校验密码
-      console.log("jiaoyan2");
-      var par2=/^[0-9]{6,10}$/;
-      var a=this.jiaoyanbiaoji2;
-      this.jiaoyanbiaoji2=par2.test(this.password);
-      if(!a && this.jiaoyanbiaoji2)
+    console.log("jiaoyan2");
+    var par2=/^[0-9]{6,10}$/;
+    var a=this.jiaoyanbiaoji2;
+    this.jiaoyanbiaoji2=par2.test(this.password);
+    if(!a && this.jiaoyanbiaoji2)
         this.biaoji++;
-      if(this.biaoji>0 && a && !this.jiaoyanbiaoji2)
-  this.biaoji--;
-  console.log(this.jiaoyanbiaoji2);
-  console.log(this.biaoji);
+    if(this.biaoji > 0 && a && !this.jiaoyanbiaoji2)
+      this.biaoji--
+    console.log(this.jiaoyanbiaoji2)
   }
   }
-  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

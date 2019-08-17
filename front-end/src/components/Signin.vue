@@ -21,15 +21,9 @@
 export default {
   name: 'Signin',
   data () {
-<<<<<<< HEAD
-    return {
-  jiaoyanbiaoji1:true,
-  jiaoyanbiaoji2:true,
-=======
   return {
   jiaoyanbiaoji1:false,
   jiaoyanbiaoji2:false,
->>>>>>> 5c91666e27cfa5bc16536ad0c489d2b5259c3525
   biaoji:0,
   statue:-1,
   account:'',

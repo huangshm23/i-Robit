@@ -9,11 +9,12 @@
           <label for="age">Password：</label>
           <input type="password" id="password" v-model.trim="password" @blur="jiaoyan2">
             <br>
+            <div>
               <div v-if="!jiaoyanbiaoji2">6到8位数字</div>
-              <router-link :to="{ path: '/signin' }">登录</router-link>
-              <br>
-                <div v-if="biaoji == 2" @click="submit">提交</div>
+              <div v-if="biaoji == 2" @click="submit">提交</div>
                 <div v-else>待提交</div>
+              <router-link :to="{ path: '/signin' }">登录</router-link>
+            </div>
               </div>
   </div>
 </template>

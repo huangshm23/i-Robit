@@ -53,10 +53,8 @@ def register_view(request):
             if authenticated_user is not None:
                 login(request,authenticated_user)
                 context = {'status':True}
-            else:
-                context = {'status':False}
-            return JsonResponse(context)
-    context = {'status':'not post'}
+                return JsonResponse(context)
+    context = {'status':False}
     return JsonResponse(context)
 
 

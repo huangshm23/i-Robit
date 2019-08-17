@@ -24,12 +24,12 @@ def login_view(request):
             else:
                 match = 2
             #前端要求的数据：用户名、密码、是否匹配
-            context = {'match':match}
+            context = {'status':match}
             return JsonResponse(context) 
         else:
             pass
     else:   #不是POST请求就返回一个空表单
-        context = {'match':1}
+        context = {'status':1}
         return JsonResponse(context)
 
 def logout_view(request):

@@ -4,17 +4,16 @@
     <div id="form">
       <label for="account">Account：</label>
       <input type="text" id="account" v-model.trim="account" @blur="jiaoyan1">
-        <br>
-          <div v-if="!jiaoyanbiaoji1">6到8位大小写字母</div>
-          <label for="age">Password：</label>
-          <input type="password" id="password" v-model.trim="password" @blur="jiaoyan2">
-            <br>
-              <div v-if="!jiaoyanbiaoji2">6到8位数字</div>
-              <router-link :to="{ path: '/signin' }">登录</router-link>
-              <br>
-                <div v-if="biaoji == 2" @click="submit">提交</div>
-                <div v-else>待提交</div>
-              </div>
+      <br>
+      <div v-if="!jiaoyanbiaoji1">6到8位大小写字母</div>
+      <label for="age">Password：</label>
+      <input type="password" id="password" v-model.trim="password" @blur="jiaoyan2">
+      <br>
+      <div v-if="!jiaoyanbiaoji2">6到8位数字</div>
+      <div v-if="biaoji == 2" @click="submit" class="buhuanhang">提交</div>
+      <div v-else class="buhuanhang">待提交</div>
+      <router-link :to="{ path: '/signin' }">转到登录</router-link>
+    </div>
   </div>
 </template>
 
@@ -80,5 +79,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped="">
-
+.buhuanhang{
+  display:inline
+}
 </style>

@@ -8,9 +8,9 @@
       <label for="age">Password：</label>
       <input type="password" id="password" v-model.trim="password" @blur="jiaoyan2"><br>
       <div v-if="!jiaoyanbiaoji2">6到8位数字</div>
-      <div v-if="biaoji == 2" @click="submit">提交</div>
-      <div v-else>待提交</div>
-      <router-link :to="{ path: '/register' }">注册</router-link>
+      <div v-if="biaoji == 2" @click="submit" class="buhuanhang">提交</div>
+      <div v-else class="buhuanhang">待提交</div>
+      <router-link :to="{ path: '/register' }">转到注册</router-link>
     </div>
   </div>
 </template>
@@ -77,5 +77,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.buhuanhang{
+  display:inline
+}
 </style>

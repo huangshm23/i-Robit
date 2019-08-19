@@ -6,6 +6,7 @@
 
 ## checkpoint
 - 8/15 建立文件夹，完成[金融界](http://fund.jrj.com.cn/list/jjdt.shtml)爬取
+- 8/18 fix some bug
 
 ## Run
 - pip install -r requirements.txt 

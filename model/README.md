@@ -19,8 +19,11 @@ simulation:模拟功能
       'expected_rate': 0.2 # 预期收益率
     }
   ```
+ 
  Filename2Num.py:将给的原始数据的名字改为基金的代号
+
 xls2xlsx.txt:里面为VBA代码，在excel运行。执行将当前目录下的xls另存为xlsx的批量操作。用来解决因格式问题而无法调用xlrd进行读操作的问题
+
 data_of_xlsx：数据
 
 

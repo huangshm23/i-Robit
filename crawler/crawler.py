@@ -63,7 +63,10 @@ def crawl():
                 for p in newspaper.find_all('p'):
                     image = p.find('img')
                     if image:
-                        text += '<p class="image"><img src="http:'+image.get('src')+'"></p>'
+                        image_url = image.get('src')
+                        if image_url.startswith('//'):
+                            image_url = 'http:' + image_url
+                        text += '<p class="image"><img src="'+image_url+'"></p>'
                     else:
                         text += '<p>'+p.text+'</p>'
                 

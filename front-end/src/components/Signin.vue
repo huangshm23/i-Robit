@@ -23,7 +23,7 @@ export default {
       jiaoyanbiaoji1:false,
       jiaoyanbiaoji2:false,
       biaoji:0,
-      statue:-1,
+      status:-1,
       account:'',
       password:'',
       msg: 'signin'
@@ -31,15 +31,14 @@ export default {
   },
   methods:{
     submit:function(){
-      console.log(this.biaoji);
+      this.postData();
       //把account，password发送给后端
       //后端返回状态字
       //0：账号密码正确,跳转到组合推荐页
       //1:账号不存在
       //2：密码错误
-      this.postData();
     },
-    postData(){
+    postData:function(){
       //把account，password发送给后端,并获得返回状态字
       this.$http.post('http://127.0.0.1:8000/users/login/',{params : {account:this.account,password:this.password}}).then(function(res){
       this.status = res.body.status;

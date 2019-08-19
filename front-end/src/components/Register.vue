@@ -14,6 +14,7 @@
       <div v-else class="buhuanhang">待提交</div>
       <router-link :to="{ path: '/signin' }">转到登录</router-link>
     </div>
+
   </div>
 </template>
 
@@ -21,26 +22,25 @@
 export default {
   name: 'Register',
   data () {
-  return {
-  jiaoyanbiaoji1:false,
-  jiaoyanbiaoji2:false,
-  biaoji:0,
-  statue:-1,
-  account:'',
-  password:'',
-  msg: 'register'
+    return {
+    jiaoyanbiaoji1:false,
+    jiaoyanbiaoji2:false,
+    biaoji:0,
+    status:-1,
+    account:'',
+    password:'',
+    msg: 'register'
   }
   },
   methods:{
   submit:function(){
-  console.log(this.biaoji);
   //把account，password发送给后端
   //后端返回状态字
   //0：注册成功，跳转组合推荐页
   //1:账号已存在
   this.postData()
   },
-  postData(){
+  postData:function(){
   //把account，password发送给后端,并获得返回状态字
   console.log("hello");
   this.$http.post('http://127.0.0.1:8000/users/register/',{params : {account:this.account,password:this.password}}).then(function(res){
@@ -50,6 +50,7 @@ export default {
         
       }
       else if (this.status == 1) {
+
       }
       else {
       

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     #我的应用程序
     'users',
+    'i_robot'
 ]
 
 MIDDLEWARE = [
@@ -91,6 +92,17 @@ DATABASES = {
     }
 }
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'HUAQI',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

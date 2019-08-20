@@ -17,14 +17,16 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic.base import TemplateView
 from i_robot.views import NewsView, RecommendateView, SimulationView
+from users.views import login_view, logout_view, register_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # 用户系统的URL
-    path('users/', include('users.urls', namespace='users')),
-    # 连接前端代码
     path('', TemplateView.as_view(template_name="index.html")),
     re_path('news/(?P<news_id>[0-9]+)?$', NewsView.as_view()),
-    path('recommendate', RecommendateView.as_view()),
-    path('simulation', SimulationView.as_view())
+    path('recommendate/', RecommendateView.as_view()),
+    path('simulation/', SimulationView.as_view()),
+
+    path('login/',login_view),
+    path('logout/',logout_view),
+    path('register/',register_view)
 ]

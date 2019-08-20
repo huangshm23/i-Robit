@@ -6,6 +6,7 @@ from django.http import JsonResponse
 
 from model.recommendate import recommendate
 from model.simulation import simulation
+import json
 
 # Create your views here.
 
@@ -42,13 +43,15 @@ class NewsView(TemplateView):
 
 class RecommendateView(TemplateView):
     def post(self, request):
-        questionnaire = request.POST.get('questionnaire')
+        body=json.loads(request.body)
+        questionnaire = body.get('questionnaire')
         result = recommendate(questionnaire)
         return JsonResponse(result)
 
 
 class SimulationView(TemplateView):
     def post(self, request):
-        fund_ratio = request.POST.get('fund_ratio')
+        body=json.loads(request.body)
+        fund_ratio = body.get('fund_ratio')
         result = simulation(fund_ratio)
         return JsonResponse(result)

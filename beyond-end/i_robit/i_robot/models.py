@@ -9,5 +9,3 @@ class News(models.Model):
     time = models.DateTimeField()
     source = models.CharField(max_length=255)
     newspaper = models.TextField()
-
-# | date DATE | url VARCHAR(2083) | title VARCHAR(255) | TIME DATATIME | source VARCHAR(255) | newspaper TEXT |

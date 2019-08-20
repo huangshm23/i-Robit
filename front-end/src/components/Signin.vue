@@ -33,7 +33,9 @@ export default {
   },
   methods:{
     submit:function(){
-      this.postData();
+      this.$store.state.is_login=true
+      this.$router.push('/recommendation')
+      //this.postData();
       //把mailbox，password发送给后端
       //后端返回状态字
       //0：账号密码正确,跳转到组合推荐页
@@ -46,7 +48,8 @@ export default {
       this.status = res.body.status;
        console.log(this.status);
       if (this.status == 0) {
-
+        this.$store.state.is_login=true
+        this.$router.push('/recommendation')
       }
       },function(err){
       console.log(err);

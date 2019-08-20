@@ -5,6 +5,7 @@ import register from '@/components/Register'
 import questionaire from '@/components/Questionaire'
 import news from '@/components/News'
 import recommendation from '@/components/Recommendation'
+import exhibition from '@/components/Exhibition'
 
 Vue.use(Router)
 
@@ -14,6 +15,7 @@ export default new Router({
       path: '/',
       name: 'signin',
       component: signin,
+      redirect: '/signin',
       meta: {
         login_require: false
       },
@@ -37,7 +39,10 @@ export default new Router({
     {
       path: '/questionaire',
       name: 'questionaire',
-      component: questionaire
+      component: questionaire,
+      meta: {
+        login_require: true
+      },
     },
     {
       path: '/news',
@@ -51,6 +56,14 @@ export default new Router({
       path: '/recommendation',
       name: 'recommendation',
       component: recommendation,
+      meta: {
+        login_require: true
+      },
+    },
+    {
+      path: '/exhibition',
+      name: 'exhibition',
+      component: exhibition,
       meta: {
         login_require: true
       },

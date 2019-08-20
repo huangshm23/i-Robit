@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import store from './vuex/store'
+
 Vue.use(VueResource)
 
 Vue.config.productionTip = false
@@ -21,7 +22,7 @@ new Vue({
 router.beforeEach((to,from,next)=>{
   if(to.meta.login_require && !store.state.is_login){
     alert('您还没登录')
-    next('/signin');
+    next('/');
   }else{
     next();
   }

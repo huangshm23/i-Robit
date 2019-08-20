@@ -48,7 +48,8 @@ export default {
       this.status = res.body.status;
       console.log(res.body.status);
       if (this.status == 0) {
-        
+        this.$store.state.is_login=true
+        this.$router.push('/recommendation')
       }
   },function(err){
   console.log(err);

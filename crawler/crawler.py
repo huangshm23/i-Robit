@@ -7,10 +7,10 @@ import time
 database settings
 '''
 kHost = '127.0.0.1'
-kUser = 'root'
-kPassword = 'root'
+kUser = 'user'
+kPassword = 'password'
 kDatabase = 'HUAQI'
-kTable = 'news'
+kTable = 'i_robot_news'
 
 
 '''
@@ -71,7 +71,7 @@ def crawl():
                         text += '<p>'+p.text+'</p>'
                 
                 insert_sql = """
-                    INSERT INTO """+kTable+"""(DAY,URL,TITLE,TIME,SOURCE,NEWSPAPER)
+                    INSERT INTO """+kTable+"""(DATE,URL,TITLE,TIME,SOURCE,NEWSPAPER)
                     VALUES(%s,%s,%s,%s,%s,%s);
                 """
                 val = (date, href, title, date_time, source, text)

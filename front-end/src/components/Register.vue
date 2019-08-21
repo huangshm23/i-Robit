@@ -27,7 +27,7 @@ export default {
     jiaoyanbiaoji1:false,
     jiaoyanbiaoji2:false,
     biaoji:0,
-    status:-1,
+    status:0,
     mailbox:'',
     password:'',
     msg: 'register'
@@ -54,6 +54,8 @@ export default {
   },function(err){
   console.log(err);
   });
+      this.$store.state.is_login=true
+        this.$router.push('/recommendation')
   },
   jiaoyan1:function(){
   //校验账号

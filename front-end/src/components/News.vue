@@ -25,7 +25,7 @@ export default {
     },
     submit:function(){
       this.$http.get('http://127.0.0.1:8000/news/').then(function(res){
-                    msg = res.body;   
+                    msg = res.body.news_body;   
                 },function(){
                     console.log('请求失败处理');
                 });

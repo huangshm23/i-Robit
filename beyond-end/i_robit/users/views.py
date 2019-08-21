@@ -24,7 +24,7 @@ def login_view(request):
             if password == user.password:
                 context = {'status':0}
             else:
-                context = {'status':1}
+                context = {'status':2}
         return JsonResponse(context)
     elif request.method == 'GET':
         return JsonResponse({})

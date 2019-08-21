@@ -7,10 +7,12 @@ from django.http import JsonResponse
 from model.recommendate import recommendate
 from model.simulation import simulation
 import json
+from django.utils.decorators import method_decorator
+
 
 # Create your views here.
 
-
+@method_decorator(csrf_exempt, name='dispatch')
 class NewsView(TemplateView):
 
     def get(self, request, news_id):
@@ -41,6 +43,7 @@ class NewsView(TemplateView):
         return JsonResponse(json_list)
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class RecommendateView(TemplateView):
     def post(self, request):
         body=json.loads(request.body)
@@ -49,6 +52,7 @@ class RecommendateView(TemplateView):
         return JsonResponse(result)
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class SimulationView(TemplateView):
     def post(self, request):
         body=json.loads(request.body)

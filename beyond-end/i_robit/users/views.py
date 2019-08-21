@@ -14,8 +14,8 @@ def login_view(request):
     '''登录视图'''
     context = {}
     if request.method == 'POST':
-        username = request.POST.get('params[username]')
-        password = request.POST.get('params[password]')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         count = User.objects.filter(username=username).count()
         if count == 0:
             context = {'status':1}

@@ -47,8 +47,7 @@ class NewsView(TemplateView):
 @method_decorator(csrf_exempt, name='dispatch')
 class RecommendateView(TemplateView):
     def post(self, request):
-        body=json.loads(request.body)
-        questionnaire = body.get('questionnaire')
+        questionnaire = request.POST.get('questionnaire')
         result = recommendate(questionnaire)
         return JsonResponse(result)
 
@@ -56,7 +55,6 @@ class RecommendateView(TemplateView):
 @method_decorator(csrf_exempt, name='dispatch')
 class SimulationView(TemplateView):
     def post(self, request):
-        body=json.loads(request.body)
-        fund_ratio = body.get('fund_ratio')
+        fund_ratio = request.POST.get('fund_ratio')
         result = simulation(fund_ratio)
         return JsonResponse(result)

@@ -1,2 +1,4 @@
 def simulation(fund_ratio):
-    return {'test':'test'}
+    return {
+        'expected_rate': 0.2
+    }

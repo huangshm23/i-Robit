@@ -37,8 +37,8 @@ def logout_view(request):
 @csrf_exempt
 def register_view(request):
     if request.method == 'POST':
-        username = request.POST.get('params[username]')
-        password = request.POST.get('params[password]')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         count = User.objects.filter(username=username).count()
         if count == 0:
             User.objects.create(username=username,password=password)

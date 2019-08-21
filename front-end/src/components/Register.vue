@@ -44,7 +44,7 @@ export default {
   postData:function(){
   //把mailbox，password发送给后端,并获得返回状态字
   console.log("hello");
-  this.$http.post('http://127.0.0.1:8000/users/register/',{params : {account:this.account,password:this.password}},{emulateJSON:true}).then(function(res){
+  this.$http.post('http://127.0.0.1:8000/users/register/',{params : {account:this.mailbox,password:this.password}},{emulateJSON:true}).then(function(res){
       this.status = res.body.status;
       console.log(res.body.status);
       if (this.status == 0) {

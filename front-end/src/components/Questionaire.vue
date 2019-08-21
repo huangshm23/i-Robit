@@ -152,8 +152,12 @@ export default {
   },
   methods:{
     submit:function(){
-    //把result发给后端，转移到组合展示页
-    this.$router.push('/exhibition')
+    //把result发给后端，根据返回结果：1转移到组合展示页，2弹出警告
+    this.$http.post('http://127.0.0.1:8000',{params : },{emulateJSON:true}).then(function(res){
+      this.$router.push('/exhibition')
+      },function(err){
+      console.log(err);
+      });
     },
     update:function(a,b){
       var n={num:a-1,value:b}

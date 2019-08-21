@@ -12,10 +12,9 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def login_view(request):
     '''登录视图'''
-    #match:0-匹配成功;1-账号不存在;2-密码错误
     context = {}
     if request.method == 'POST':
-        username = request.POST.get('params[account]')
+        username = request.POST.get('params[username]')
         password = request.POST.get('params[password]')
         count = User.objects.filter(username=username).count()
         if count == 0:
@@ -25,7 +24,7 @@ def login_view(request):
             if password == user.password:
                 context = {'status':0}
             else:
-                context = {'status':2}
+                context = {'status':1}
     return JsonResponse(context)
 
 @csrf_exempt
@@ -37,19 +36,13 @@ def logout_view(request):
 
 @csrf_exempt
 def register_view(request):
-    '''注册视图:status=0表示成功,status=1表示账号已存在'''
     if request.method == 'POST':
-        username = request.POST.get('params[account]')
+        username = request.POST.get('params[username]')
         password = request.POST.get('params[password]')
         count = User.objects.filter(username=username).count()
-        #print('POST data: ',request.POST)
-        #print('path: ',request.path)
-        #print('username: ',username)
-        #print('password: ',password)
-        #print('count of user',count)
         if count == 0:
             User.objects.create(username=username,password=password)
-            return JsonResponse({'status':0})
+            return JsonResponse({'status':0,'msg':''})
         else:
-            return JsonResponse({'status':1})
+            return JsonResponse({'status':1,'msg':'用户名已存在'})
     return JsonResponse({})

@@ -8,8 +8,7 @@
       <label for="age">Password：</label>
       <input type="password" id="password" v-model.trim="password" @blur="jiaoyan2"><br>
       <div v-if="!jiaoyanbiaoji2">6到8位数字</div>
-      <div v-if="status==1">账号不存在</div>
-      <div v-else-if="status==2">密码错误</div>
+      <div v-if="status==1">账号不存在或密码错误</div>
       <div v-if="biaoji == 2" @click="submit" class="buhuanhang">提交</div>
       <div v-else class="buhuanhang">待提交</div>
       <router-link :to="{ path: '/register' }">转到注册</router-link>
@@ -33,18 +32,17 @@ export default {
   },
   methods:{
     submit:function(){
-      this.$store.state.is_login=true
-      this.$router.push('/recommendation')
-      //this.postData();
+      //this.$store.state.is_login=true
+      //this.$router.push('/recommendation')
+      this.postData();
       //把mailbox，password发送给后端
       //后端返回状态字
       //0：账号密码正确,跳转到组合推荐页
-      //1:账号不存在
-      //2：密码错误
+      //1:账号不存在或者密码错误
     },
     postData:function(){
       //把mailbox，password发送给后端,并获得返回状态字
-      this.$http.post('http://127.0.0.1:8000/users/login/',{params : {account:this.mailbox,password:this.password}},{emulateJSON:true}).then(function(res){
+      this.$http.post('http://178.128.115.175:80/login/',{username:this.mailbox,password:this.password},{emulateJSON:true}).then(function(res){
       this.status = res.body.status;
        console.log(this.status);
       if (this.status == 0) {

@@ -153,7 +153,21 @@ export default {
   methods:{
     submit:function(){
     //把result发给后端，根据返回结果：1转移到组合展示页，2弹出警告
-    this.$http.post('http://127.0.0.1:8000',{params : JSON.stringify(this.$store.state.result)},{emulateJSON:true}).then(function(res){
+    this.$http.post('http://178.128.115.175:80/recommendate/',{'questionnaire': {
+      '1': this.$store.state.result[0] - 'A',
+      '2': this.$store.state.result[1] - 'A',
+      '3': this.$store.state.result[2] - 'A',
+      '4': this.$store.state.result[3] - 'A',
+      '5': this.$store.state.result[4] - 'A',
+      '6': this.$store.state.result[5] - 'A',
+      '7': this.$store.state.result[6] - 'A',
+      '8': this.$store.state.result[7] - 'A',
+      '9': this.$store.state.result[8] - 'A',
+      '10': this.$store.state.result[9] - 'A',
+      '11': this.$store.state.result[10] - 'A',
+      '12': this.$store.state.result[11] - 'A',
+      '13': this.$store.state.result[12] - 'A'
+    }},{emulateJSON:true}).then(function(res){
       this.$router.push('/exhibition')
       },function(err){
       console.log(err);

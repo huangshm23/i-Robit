@@ -24,8 +24,8 @@ export default {
       this.$router.push('/')
     },
     submit:function(){
-      this.$http.get('http://127.0.0.1:8000/news/').then(function(res){
-                    msg = res.body.news_body;   
+      this.$http.get('http://178.128.115.175:80/news/').then(function(res){
+                    this.msg = res.body.news_body;   
                 },function(){
                     console.log('请求失败处理');
                 });

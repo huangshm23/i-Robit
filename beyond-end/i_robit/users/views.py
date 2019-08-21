@@ -2,52 +2,54 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import logout, login, authenticate
-from django.contrib.auth.forms import UserCreationForm
 import json
+from .models import User
 
-from .forms import LoginForm
 # Create your views here.
 
 from django.views.decorators.csrf import csrf_exempt
-@csrf_exempt
 
+@csrf_exempt
 def login_view(request):
     '''登录视图'''
+    #match:0-匹配成功;1-账号不存在;2-密码错误
+    context = {}
     if request.method == 'POST':
-        body=json.loads(request.body)
-        login_form = LoginForm(body)
-        if login_form.is_valid():
-            username = body.get('account')
-            passsword = body.get('password')
-            user = authenticate(username=username, passsword=passsword)
-            if user:
-                login(request, user)
-                return JsonResponse({'status': 0})
-            else:
-                match = 2
+        username = request.POST.get('params[account]')
+        password = request.POST.get('params[password]')
+        count = User.objects.filter(username=username).count()
+        user = User.objects.get(username=username)
+        if count == 0:
+            context = {'status':1}
         else:
-            match = 1
-        context = {'status':match}
-        return JsonResponse(context) 
-    else:   #不是POST请求就返回一个空表单
-        context = {'status':1}
-        return JsonResponse(context)
+            if password == user.password:
+                context = {'status':0}
+            else:
+                context = {'status':2}
+    return JsonResponse(context)
 
+@csrf_exempt
 def logout_view(request):
     '''注销视图'''
     logout(request)
     context = {'status':0}
     return JsonResponse(context)
 
+@csrf_exempt
 def register_view(request):
-    if request.method == 'GET':
-        return {}
-    else:
-        body=json.loads(request.body)
-        form = UserCreationForm(data=body)
-        if form.is_valid():
-            new_user = form.save()
-            return JsonResponse({'status': 1,'msg':''})
+    '''注册视图:status=0表示成功,status=1表示账号已存在'''
+    if request.method == 'POST':
+        username = request.POST.get('params[account]')
+        password = request.POST.get('params[password]')
+        count = User.objects.filter(username=username).count()
+        #print('POST data: ',request.POST)
+        #print('path: ',request.path)
+        #print('username: ',username)
+        #print('password: ',password)
+        #print('count of user',count)
+        if count == 0:
+            User.objects.create(username=username,password=password)
+            return JsonResponse({'status':0})
         else:
-            errors=dict(form.errors.items())
-            return JsonResponse({'status': 0,'msg':list(errors.values())[0]})
+            return JsonResponse({'status':1})
+    return JsonResponse({})

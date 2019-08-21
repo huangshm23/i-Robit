@@ -18,10 +18,10 @@ def login_view(request):
         username = request.POST.get('params[account]')
         password = request.POST.get('params[password]')
         count = User.objects.filter(username=username).count()
-        user = User.objects.get(username=username)
         if count == 0:
             context = {'status':1}
         else:
+            user = User.objects.get(username=username)
             if password == user.password:
                 context = {'status':0}
             else:

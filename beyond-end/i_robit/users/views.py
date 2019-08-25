@@ -49,7 +49,7 @@ def register_view(request):
             email_to = username
             title = 'i-Robot注册验证'
             message = '恭喜您成功注册了i-Robot账户'
-            email_from = ''
+            email_from = 'huaqi_irobot@163.com'
             reciever = [email_to]
             try:
                 send_mail(title,message,email_from,reciever)

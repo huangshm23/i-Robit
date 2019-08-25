@@ -145,3 +145,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Email Authentication
+EMAIL_HOST = 'smtp.qq.com'                  #SMTP地址
+EMAIL_PORT = 25                             #SMTP端口
+EMAIL_HOST_USER = '@qq.com'        #邮箱账号
+EMAIL_HOST_PASSWORD = ''    #第三方登录授权码
+EMAIL_USE_TLS = False                       #与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
+EMAIL_FROM = '@qq.com'             #发件人

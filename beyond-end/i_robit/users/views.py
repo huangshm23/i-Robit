@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import logout, login, authenticate
+from django.core.mail import send_mail
 import json
 from .models import User
 
@@ -45,6 +46,15 @@ def register_view(request):
         password = request.POST.get('password')
         count = User.objects.filter(username=username).count()
         if count == 0:
+            email_to = username
+            title = 'i-Robot注册验证'
+            message = '恭喜您成功注册了i-Robot账户'
+            email_from = ''
+            reciever = [email_to]
+            try:
+                send_mail(title,message,email_from,reciever)
+            except:
+                return JsonResponse({'status':2,'msg':'邮箱不存在'})
             User.objects.create(username=username,password=password)
             return JsonResponse({'status':0,'msg':''})
         else:

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic.base import TemplateView
 from i_robot.views import NewsView, RecommendateView, SimulationView
-from users.views import login_view, logout_view, register_view
+from users.views import login_view, logout_view, register_view,activate_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,6 @@ urlpatterns = [
 
     path('login/',login_view),
     path('logout/',logout_view),
-    path('register/',register_view)
+    path('register/',register_view),
+    re_path('activate/(?P<activate_id>\w+)',activate_view),
 ]

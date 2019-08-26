@@ -4,7 +4,8 @@ from django.urls import reverse
 from django.contrib.auth import logout, login, authenticate
 from django.core.mail import send_mail
 import json
-from .models import User
+from .models import User,Email_auth
+import random
 
 # Create your views here.
 
@@ -32,10 +33,13 @@ def login_view(request):
             context = {'status':1}
         else:
             user = User.objects.get(username=username)
-            if password == user.password:
-                context = {'status':0}
+            if user.is_active == False:
+                context = {'status':2}    #账号未激活
             else:
-                context = {'status':1}
+                if password == user.password:
+                    context = {'status':0}
+                else:
+                    context = {'status':1}  #账户或密码错误
         return JsonResponse(context)
     elif request.method == 'GET':
         return JsonResponse({})
@@ -57,17 +61,38 @@ def register_view(request):
         count = User.objects.filter(username=username).count()
         if count == 0:
             email_to = username
+            activate_id = get_activate_id()
             title = 'i-Robot注册验证'
-            message = '恭喜您成功注册了i-Robot账户'
+            message = '欢迎注册learning_log，请点击此链接激活账号：http://178.128.115.175:80/users/activate/{0}'.format(activate_id)
             email_from = 'huaqi_irobot@163.com'
             reciever = [email_to]
             try:
                 send_mail(title,message,email_from,reciever)
+                Email_user = Email_auth()
+                Email_user.activate_id = activate_id
+                Email_user.email = email_to
+                Email_user.save()
             except:
                 return JsonResponse({'status':2,'msg':'邮箱不存在'})
-            User.objects.create(username=username,password=password)
+            new_user = User.objects.create(username=username,password=password)
+            new_user.is_active = False
             return JsonResponse({'status':0,'msg':''})
         else:
             return JsonResponse({'status':1,'msg':'用户名已存在'})
     elif request.method=='GET':
         return JsonResponse({})
+
+#账户激活视图
+def activate(request,activate_id):
+    if request.method == 'GET':
+        #print('activate_id: ',activate_id)
+        Email_user = Email_auth.objects.get(activate_id=activate_id)
+        if Email_user is not None:
+            #print(Email_user.email)
+            username = Email_user.email
+            user = User.objects.get(username=username)
+            user.is_active = True
+            user.save()
+            Email_user.delete()
+            return JsonResponse({'status':0})   #激活成功
+    return JsonResponse({'status':1})           #激活失败

@@ -10,6 +10,16 @@ from .models import User
 
 from django.views.decorators.csrf import csrf_exempt
 
+#获取随机激活码
+def get_activate_id(id_length=6):
+    seq = '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'
+    length = len(seq)-1
+    activate_id = ''
+    for i in range(id_length):
+        ind = random.randint(0,length)
+        activate_id += seq[ind]
+    return activate_id
+
 @csrf_exempt
 def login_view(request):
     '''登录视图'''

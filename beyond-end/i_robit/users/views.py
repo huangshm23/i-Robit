@@ -83,7 +83,7 @@ def register_view(request):
         return JsonResponse({})
 
 #账户激活视图
-def activate(request,activate_id):
+def activate_view(request,activate_id):
     if request.method == 'GET':
         #print('activate_id: ',activate_id)
         Email_user = Email_auth.objects.get(activate_id=activate_id)

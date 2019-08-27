@@ -63,7 +63,7 @@ def register_view(request):
             email_to = username
             activate_id = get_activate_id()
             title = 'i-Robot注册验证'
-            message = '欢迎注册learning_log，请点击此链接激活账号：http://178.128.115.175:80/users/activate/{0}'.format(activate_id)
+            message = '欢迎注册learning_log，请点击此链接激活账号：http://178.128.115.175:80/activate/{0}'.format(activate_id)
             email_from = 'huaqi_irobot@163.com'
             reciever = [email_to]
             try:

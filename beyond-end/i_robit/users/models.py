@@ -6,7 +6,7 @@ class User(models.Model):
     #gender_choice = [('male','男'),('female','女'),]
     username = models.TextField()
     password = models.TextField()
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=False)
     #email = models.EmailField(unique=True)
     #gender = models.CharField(max_length=10,choices=gender_choice,default='男')
 

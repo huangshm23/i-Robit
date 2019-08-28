@@ -4,8 +4,8 @@ from django.db import models
 
 class User(models.Model):
     #gender_choice = [('male','男'),('female','女'),]
-    username = models.TextField()
-    password = models.TextField()
+    username = models.CharField(max_length=64,unique=True)
+    password = models.CharField(max_length=32)
     is_active = models.BooleanField(default=False)
     #email = models.EmailField(unique=True)
     #gender = models.CharField(max_length=10,choices=gender_choice,default='男')

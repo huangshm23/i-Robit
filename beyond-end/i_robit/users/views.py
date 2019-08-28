@@ -59,32 +59,32 @@ def register_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         count = User.objects.filter(username=username).count()
-        print(True)
+        
+        #先生成可能要发送的邮件信息
+        email_to = username
+        activate_id = get_activate_id()
+        title = 'i-Robot注册验证'
+        message = '欢迎注册i-Robot，请点击此链接激活账号：http://178.128.115.175:80/activate/{0}'.format(activate_id)
+        email_from = 'huaqi_irobot@163.com'
+        reciever = [email_to]
+        
+        count = User.objects.filter(username=username).count()
+        if count!=0:
+            user = User.objects.get(username=username)
+            if user.is_active == True:  #已经注册且激活
+                return JsonResponse({'status':1,'msg':'用户名已存在'})
+
+        #未注册 或者 未激活 都要发送激活邮件
+        try:
+            send_mail(title,message,email_from,reciever)
+            Email_auth.objects.create(activate_id=activate_id,email=email_to)
+        except:
+            return JsonResponse({'status':2,'msg':'邮箱不存在'})
+        #如果是未注册，这是已经验证邮箱合法，可以将用户信息存进数据库
         if count == 0:
-            email_to = username
-            activate_id = get_activate_id()
-            title = 'i-Robot注册验证'
-            message = '欢迎注册i-Robot，请点击此链接激活账号：http://178.128.115.175:80/activate/{0}'.format(activate_id)
-            email_from = 'huaqi_irobot@163.com'
-            reciever = [email_to]
-            try:
-                print('sending')
-                status = send_mail(title,message,email_from,reciever)
-                if status == 0:
-                    JsonResponse({'status':3,'msg':'激活邮件未成功发送'})
-                send_mail(title,message,email_from,reciever,fail_silently=False)
-                print('sent')
-                Email_user = Email_auth()
-                Email_user.activate_id = activate_id
-                Email_user.email = email_to
-                Email_user.save()
-            except Exception as e:
-                print(e)
-                return JsonResponse({'status':2,'msg':'邮箱不存在'})
-            new_user = User.objects.create(username=username,password=password)
-            return JsonResponse({'status':0,'msg':''})
-        else:
-            return JsonResponse({'status':1,'msg':'用户名已存在'})
+            User.objects.create(username=username,password=password,is_active=False)
+        return JsonResponse({'status':0,'msg':''})
+    
     elif request.method=='GET':
         return JsonResponse({})
 

@@ -37,47 +37,49 @@ def crawl():
             for li in ul.find_all('li'):
                 if li.get('class') == ['space']:
                     continue
-                
-                date = li.i.text
-                href = li.a.get('href').replace('//', '')
+                try:
+                    date = li.i.text
+                    href = li.a.get('href').replace('//', '')
 
-                select_sql = """
-                    SELECT EXISTS(SELECT 1 FROM """+kTable+""" WHERE URL=%s);
-                """
-                cursor.execute(select_sql, (href,))
-                exist = cursor.fetchone()
-                if exist[0]:
-                    continue
-                
-                response = requests.get('http://'+href, headers=kHeaders)
-                soup = BeautifulSoup(response.text, 'html.parser')
+                    select_sql = """
+                        SELECT EXISTS(SELECT 1 FROM """+kTable+""" WHERE URL=%s);
+                    """
+                    cursor.execute(select_sql, (href,))
+                    exist = cursor.fetchone()
+                    if exist[0]:
+                        continue
+                    
+                    response = requests.get('http://'+href, headers=kHeaders)
+                    soup = BeautifulSoup(response.text, 'html.parser')
 
-                title = soup.h1.text.replace('\r', '').replace('\n', '')
-                date_time = soup.find('span', {'class': 'time'}).text.replace(
-                    '\r', '').replace('\n', '')
-                source = soup.find('span', {'class': 'urladd'}).text.replace(
-                    '来源：', '').replace('\n', '')
-                newspaper = soup.find('div', {'class': 'texttit_m1'})
-                
-                text = ''
-                for p in newspaper.find_all('p'):
-                    image = p.find('img')
-                    if image:
-                        image_url = image.get('src')
-                        if image_url.startswith('//'):
-                            image_url = 'http:' + image_url
-                        text += '<p class="image"><img src="'+image_url+'"></p>'
-                    else:
-                        text += '<p>'+p.text+'</p>'
-                
-                insert_sql = """
-                    INSERT INTO """+kTable+"""(DATE,URL,TITLE,TIME,SOURCE,NEWSPAPER)
-                    VALUES(%s,%s,%s,%s,%s,%s);
-                """
-                val = (date, href, title, date_time, source, text)
-                cursor.execute(insert_sql, val)
-                connect.commit()
-                time.sleep(kDelay)
+                    title = soup.h1.text.replace('\r', '').replace('\n', '')
+                    date_time = soup.find('span', {'class': 'time'}).text.replace(
+                        '\r', '').replace('\n', '')
+                    source = soup.find('span', {'class': 'urladd'}).text.replace(
+                        '来源：', '').replace('\n', '')
+                    newspaper = soup.find('div', {'class': 'texttit_m1'})
+                    
+                    text = ''
+                    for p in newspaper.find_all('p'):
+                        image = p.find('img')
+                        if image:
+                            image_url = image.get('src')
+                            if image_url.startswith('//'):
+                                image_url = 'http:' + image_url
+                            text += '<p class="image"><img src="'+image_url+'"></p>'
+                        else:
+                            text += '<p>'+p.text+'</p>'
+                    
+                    insert_sql = """
+                        INSERT INTO """+kTable+"""(DATE,URL,TITLE,TIME,SOURCE,NEWSPAPER)
+                        VALUES(%s,%s,%s,%s,%s,%s);
+                    """
+                    val = (date, href, title, date_time, source, text)
+                    cursor.execute(insert_sql, val)
+                    connect.commit()
+                    time.sleep(kDelay)
+                except:
+                    print(li)
 
             url = 'http://fund.jrj.com.cn/list/jjdt-%s.shtml' % i
             time.sleep(kDelay)

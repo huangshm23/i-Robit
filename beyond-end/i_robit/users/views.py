@@ -67,7 +67,9 @@ def register_view(request):
             email_from = 'huaqi_irobot@163.com'
             reciever = [email_to]
             try:
-                send_mail(title,message,email_from,reciever)
+                status = send_mail(title,message,email_from,reciever)
+                if status == 0:
+                    JsonResponse({'status':3,'msg':'激活邮件未成功发送'})
                 Email_user = Email_auth()
                 Email_user.activate_id = activate_id
                 Email_user.email = email_to

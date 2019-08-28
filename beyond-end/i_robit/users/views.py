@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import logout, login, authenticate
 from django.core.mail import send_mail
-import json
+from django.contrib.auth.hashers import make_password, check_password
 from .models import User,Email_auth
 import random
 
@@ -36,7 +36,7 @@ def login_view(request):
             if user.is_active == False:
                 context = {'status':2}    #账号未激活
             else:
-                if password == user.password:
+                if check_password(password,user.password):
                     context = {'status':0}
                 else:
                     context = {'status':1}  #账户或密码错误
@@ -82,7 +82,7 @@ def register_view(request):
             return JsonResponse({'status':2,'msg':'邮箱不存在'})
         #如果是未注册，这是已经验证邮箱合法，可以将用户信息存进数据库
         if count == 0:
-            User.objects.create(username=username,password=password,is_active=False)
+            User.objects.create(username=username,password=make_password(password,None,'pbkdf2_sha1'),is_active=False)
         return JsonResponse({'status':0,'msg':''})
     
     elif request.method=='GET':

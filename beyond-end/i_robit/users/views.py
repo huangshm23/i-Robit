@@ -59,25 +59,29 @@ def register_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         count = User.objects.filter(username=username).count()
+        print(True)
         if count == 0:
             email_to = username
             activate_id = get_activate_id()
             title = 'i-Robot注册验证'
-            message = '欢迎注册irobot，请点击此链接激活账号：http://178.128.115.175:80/activate/{0}'.format(activate_id)
+            message = '欢迎注册i-Robot，请点击此链接激活账号：http://178.128.115.175:80/activate/{0}'.format(activate_id)
             email_from = 'huaqi_irobot@163.com'
             reciever = [email_to]
             try:
+                print('sending')
                 status = send_mail(title,message,email_from,reciever)
                 if status == 0:
                     JsonResponse({'status':3,'msg':'激活邮件未成功发送'})
+                send_mail(title,message,email_from,reciever,fail_silently=False)
+                print('sent')
                 Email_user = Email_auth()
                 Email_user.activate_id = activate_id
                 Email_user.email = email_to
                 Email_user.save()
-            except:
+            except Exception as e:
+                print(e)
                 return JsonResponse({'status':2,'msg':'邮箱不存在'})
             new_user = User.objects.create(username=username,password=password)
-            new_user.is_active = False
             return JsonResponse({'status':0,'msg':''})
         else:
             return JsonResponse({'status':1,'msg':'用户名已存在'})
@@ -87,14 +91,13 @@ def register_view(request):
 #账户激活视图
 def activate_view(request,activate_id):
     if request.method == 'GET':
-        #print('activate_id: ',activate_id)
-        Email_user = Email_auth.objects.get(activate_id=activate_id)
-        if Email_user is not None:
-            #print(Email_user.email)
+        try:
+            Email_user = Email_auth.objects.get(activate_id=activate_id)
             username = Email_user.email
             user = User.objects.get(username=username)
             user.is_active = True
             user.save()
             Email_user.delete()
-            return JsonResponse({'status':0})   #激活成功
-    return JsonResponse({'status':1})           #激活失败
+            return JsonResponse({'status':0})
+        except Email_auth.DoesNotExist:
+            return JsonResponse({'status':1})

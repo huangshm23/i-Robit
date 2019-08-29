@@ -64,7 +64,7 @@ def register_view(request):
         email_to = username
         activate_id = get_activate_id()
         title = 'i-Robot注册验证'
-        message = '欢迎注册i-Robot，请点击此链接激活账号：http://178.128.115.175:80/activate/{0}'.format(activate_id)
+        message = '欢迎注册i-Robot，请点击此链接激活账号：http://129.211.63.182:80/activate/{0}'.format(activate_id)
         email_from = 'huaqi_irobot@163.com'
         reciever = [email_to]
         
@@ -79,7 +79,7 @@ def register_view(request):
             send_mail(title,message,email_from,reciever)
             Email_auth.objects.create(activate_id=activate_id,email=email_to)
         except:
-            return JsonResponse({'status':2,'msg':'邮箱不存在'})
+            return JsonResponse({'status':2,'msg':'邮件发送失败'})
         #如果是未注册，这是已经验证邮箱合法，可以将用户信息存进数据库
         if count == 0:
             User.objects.create(username=username,password=make_password(password,None,'pbkdf2_sha1'),is_active=False)

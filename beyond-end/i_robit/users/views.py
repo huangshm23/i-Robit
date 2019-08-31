@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 
 #自定义
-from utils.auth import Generete_token,Authtication,get_activate_id
+from auth import Generete_token,Authtication,get_activate_id
 
 
 @method_decorator(csrf_exempt, name='dispatch')

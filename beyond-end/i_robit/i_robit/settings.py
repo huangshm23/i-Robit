@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #我的应用程序
     'users',
     'i_robot'
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

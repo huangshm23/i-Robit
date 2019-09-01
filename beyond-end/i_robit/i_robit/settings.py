@@ -154,3 +154,8 @@ EMAIL_HOST_USER = 'huaqi_irobot@163.com'        #邮箱账号
 EMAIL_HOST_PASSWORD = '2019huaqi'    #第三方登录授权码
 EMAIL_USE_TLS = True                       #与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
 EMAIL_FROM = 'huaqi_irobot@163.com'             #发件人
+
+REST_FRAMEWORK ={
+    'DEFAULT_THROTTLE_RATES':{'irobot':'3/m'},
+}
+

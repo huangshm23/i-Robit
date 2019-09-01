@@ -2,6 +2,8 @@ import hashlib
 import random
 from users.models import UserToken
 from rest_framework import exceptions
+from rest_framework.authentication import BaseAuthentication
+from rest_framework.throttling import SimpleRateThrottle
 
 #获取随机激活码
 def get_activate_id(id_length=6):
@@ -22,8 +24,8 @@ def Generete_token(user):
     token.update(bytes(random_str,encoding='utf-8'))
     return token.hexdigest()
 
-class Authtication():
-    
+class Authtication(BaseAuthentication):
+    '''用户身份认证'''
     def authenticate(self,request):
         token = request._request.GET.get('token')
         token_obj = UserToken.objects.filter(token=token).first()
@@ -38,3 +40,10 @@ class Authtication():
     
     def authenticate_header(self,request):
         pass
+   
+class VisitThrottle(SimpleRateThrottle):
+    '''限制访问次数'''
+    scope = 'irobot'
+
+    def get_cache_key(self,request,view):
+        return self.get_ident(request) #IP作为唯一标识

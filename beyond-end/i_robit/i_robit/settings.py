@@ -148,12 +148,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #Email Authentication
-EMAIL_HOST = 'smtp.163.com'                  #SMTP地址
+EMAIL_HOST = 'smtp.sina.com'                  #SMTP地址
 EMAIL_PORT = 25                             #SMTP端口
-EMAIL_HOST_USER = 'huaqi_irobot@163.com'        #邮箱账号
-EMAIL_HOST_PASSWORD = '2019huaqi'    #第三方登录授权码
-EMAIL_USE_TLS = True                       #与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
-EMAIL_FROM = 'huaqi_irobot@163.com'             #发件人
+EMAIL_HOST_USER = 'irobot2019@sina.com'     #我自己的邮箱
+EMAIL_HOST_PASSWORD = '82c6d93d10037b8d'        #我的邮箱密码
+EMAIL_USE_TLS = False                       #与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
+EMAIL_FROM = 'irobot2019@sina.com'          #发件人
 
 REST_FRAMEWORK ={
     'DEFAULT_THROTTLE_RATES':{'irobot':'3/m'},

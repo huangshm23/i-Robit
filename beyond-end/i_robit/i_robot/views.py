@@ -9,12 +9,13 @@ from model.simulation import simulation
 import json
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.views import APIView
 
 
 # Create your views here.
 
 @method_decorator(csrf_exempt, name='dispatch')
-class NewsView(TemplateView):
+class NewsView(APIView):
 
     def get(self, request, news_id):
 
@@ -45,16 +46,20 @@ class NewsView(TemplateView):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class RecommendateView(TemplateView):
+class RecommendateView(APIView):
     def post(self, request):
         questionnaire = request.POST.get('questionnaire')
         result = recommendate(questionnaire)
         return JsonResponse(result)
+    def get(self, request):
+        return JsonResponse({})
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class SimulationView(TemplateView):
+class SimulationView(APIView):
     def post(self, request):
         fund_ratio = request.POST.get('fund_ratio')
         result = simulation(fund_ratio)
         return JsonResponse(result)
+    def get(self, request):
+        return JsonResponse({})

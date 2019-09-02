@@ -168,6 +168,12 @@ export default {
       '12': this.$store.state.result[11] - 'A',
       '13': this.$store.state.result[12] - 'A'
     }},{emulateJSON:true}).then(function(res){
+      //res.body.recommendation
+      this.$store2.commit("updateRate",res.body.expected_rate,res.body.risk_factor);
+      var myObj = res.body.recommendation;
+      for (x in myObj) {
+        this.$store2.commit("updateFund",x,myObj[x]);
+      }
       this.$router.push('/exhibition')
       },function(err){
       console.log(err);
@@ -180,6 +186,13 @@ export default {
     logout:function(){
       this.$store.state.is_login=false
       this.$router.push('/')
+      //发送退出请求到后端，返回0成功, 1失败
+      this.$http.get('http://178.128.115.175:80/logout/').then(function(res){
+                    if (res.body.status)
+                      console.log('退出失败'); 
+                },function(){
+                    console.log('请求失败处理');
+                });
     }
   }
 }

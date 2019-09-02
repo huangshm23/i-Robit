@@ -11,9 +11,11 @@
       <br>
       <div v-if="!jiaoyanbiaoji2">6到8位数字</div>
       <div v-if="status==1">账号已存在</div>
+      <div v-if="status==2">邮件发送失败</div>
       <div v-if="biaoji == 2" @click="submit" class="buhuanhang">提交</div>
       <div v-else class="buhuanhang">待提交</div>
       <router-link :to="{ path: '/signin' }">转到登录</router-link>
+      <div v-if="activate == 1" @click="deactivate" > 激活 </div>
     </div>
 
   </div>
@@ -27,7 +29,8 @@ export default {
     jiaoyanbiaoji1:false,
     jiaoyanbiaoji2:false,
     biaoji:0,
-    status:0,
+    status:-1,
+    activate: 1,
     mailbox:'',
     password:'',
     msg: 'register'
@@ -37,8 +40,9 @@ export default {
   submit:function(){
   //把mailbox，password发送给后端
   //后端返回状态字
-  //0：注册成功，跳转组合推荐页
+  //0：注册成功，待激活
   //1:账号已存在
+  //2：发送邮件失败
   this.postData()
   },
   postData:function(){
@@ -55,6 +59,16 @@ export default {
   });
       this.$store.state.is_login=true
         this.$router.push('/recommendation')
+  },
+  deactivate:function(){
+    this.$http.get('http://178.128.115.175:80/activate/<activate_id>').then(function(res){
+                    if (res.body.status)
+                      console.log('激活失败');
+                    else  
+                      activate = 0;
+                },function(){
+                    console.log('请求失败处理');
+                })
   },
   jiaoyan1:function(){
   //校验账号

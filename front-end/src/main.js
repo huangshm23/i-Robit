@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import store from './vuex/store'
+import store2 from './vuex/store'
 
 Vue.use(VueResource)
 
@@ -16,7 +17,8 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
-  store
+  store,
+  store2
 })
 
 router.beforeEach((to,from,next)=>{

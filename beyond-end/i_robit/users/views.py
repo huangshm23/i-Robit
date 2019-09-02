@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 
 #自定义
-from auth import Generete_token,Authtication,get_activate_id
+from auth import Generete_token,Authtication,get_activate_id,VisitThrottle
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -67,6 +67,7 @@ class Logout(APIView):
 @method_decorator(csrf_exempt, name='dispatch')
 class Register(APIView):
     '''注册视图'''
+    throttle_classes = [VisitThrottle,] #一分钟内只能注册三次
     def post(self,request):
         username = request.POST.get('username')
         password = request.POST.get('password')

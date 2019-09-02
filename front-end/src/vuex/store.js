@@ -20,4 +20,27 @@ const store = new Vuex.Store({
     }
 })
 
+const store2 = new Vuex.Store({
+    state : {
+        is_login:false,
+        funds:[],
+        rate:0,
+        risk_factor:0
+    },
+    getters:{
+        getResult:function(state){
+            return state.funds
+        }
+    },
+    mutations:{
+        updateFund:function(state,name,radio){
+            state.funds[name]=radio
+        },
+        updateRate:function(state,rate1,risk){
+            state.rate=rate1
+            state.risk_factor = risk
+        }
+    }
+})
+
 export default store;

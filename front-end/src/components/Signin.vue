@@ -9,6 +9,7 @@
       <input type="password" id="password" v-model.trim="password" @blur="jiaoyan2"><br>
       <div v-if="!jiaoyanbiaoji2">6到8位数字</div>
       <div v-if="status==1">账号不存在或密码错误</div>
+      <div v-if="status==2">账号未激活</div>
       <div v-if="biaoji == 2" @click="submit" class="buhuanhang">提交</div>
       <div v-else class="buhuanhang">待提交</div>
       <router-link :to="{ path: '/register' }">转到注册</router-link>
@@ -38,7 +39,8 @@ export default {
       //把mailbox，password发送给后端
       //后端返回状态字
       //0：账号密码正确,跳转到组合推荐页
-      //1:账号不存在或者密码错误
+      //1:账号不存在
+      //2:账号未激活
     },
     postData:function(){
       //把mailbox，password发送给后端,并获得返回状态字

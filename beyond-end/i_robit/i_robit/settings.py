@@ -157,5 +157,6 @@ EMAIL_FROM = 'huaqi_irobot@163.com'             #发件人
 
 REST_FRAMEWORK ={
     'DEFAULT_THROTTLE_RATES':{'irobot':'3/m'},
+    'EXCEPTION_HANDLER':'auth.exception_handler',
 }
 

@@ -77,8 +77,8 @@ class Register(APIView):
         email_to = username
         activate_id = get_activate_id()
         title = 'i-Robot注册验证'
-        message = '欢迎注册irobot，请点击此链接激活账号：http://178.128.115.175:80/activate/{0}'.format(activate_id)
-        email_from = 'irobot2019@sina.com'
+        message = '欢迎注册irobot，请点击此链接激活账号：http://129.211.63.182:80/activate/{0}'.format(activate_id)
+        email_from = 'huaqi_irobot@163.com'
         reciever = [email_to]    
         
         count = User.objects.filter(username=username).count()

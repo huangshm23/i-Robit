@@ -54,9 +54,9 @@ class Logout(APIView):
     '''注销视图'''
     authentication_classes = [Authtication,]
     def get(self,request):
-        print(request.user)
-        print(request.auth)
-        logout(request) #注销函数
+        #print(request.user)
+        #print(request.auth)
+        #logout(request) #注销函数
         #删除用户对应的Token
         token = request._request.GET.get('token')
         token_obj = UserToken.objects.get(token=token)

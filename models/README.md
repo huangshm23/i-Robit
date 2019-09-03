@@ -1,7 +1,7 @@
-#Models
+# Models
 模型实现。
 
-#Original Data
+# Original Data
 包含了原始的基金数据，包括xlsx和xls两种格式的文件。  
 
 - xls: 数据来源 RESSET数据库（使用校园网访问）[链接](http://library.sysu.edu.cn/article/1543)
@@ -9,17 +9,17 @@
 
 命名格式：基金名_基金编号(6位)
 
-#dataclean
+# dataclean
 处理原始数据，生成data.npy和name.npy文件。前者为二维numpy数组，每行为一支基金的单日增长率序列；后者记录对应的基金名。
 
-#algorithm & model
+# algorithm & model
 运行马科维茨模型，并根据效用函数计算出每个风险系数所选中的最佳组合权重、年化期望收益率与年化标准差，并将结果保存入数据库。
 
 - 风险系数区间为[3.0, 6.0]，步长0.1，共31个
 - 由于采用了django的ORM来进行数据库操作，因此需要加入django的运行环境方可运行。
 - **只有当基金数据有更新时才需要重新运行模型**
 
-#interface
+# interface
 提供给后端调用的接口。
 
 - 根据用户问卷计算风险系数并查询数据库得到组合：

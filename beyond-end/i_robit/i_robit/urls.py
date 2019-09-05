@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic.base import TemplateView
 from i_robot.views import NewsView, RecommendateView, SimulationView
-from users.views import login_view, logout_view, register_view,activate_view
+from users import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,8 +26,8 @@ urlpatterns = [
     path('recommendate/', RecommendateView.as_view()),
     path('simulation/', SimulationView.as_view()),
 
-    path('login/',login_view),
-    path('logout/',logout_view),
-    path('register/',register_view),
-    re_path('activate/(?P<activate_id>\w+)',activate_view),
+    path('login/',views.Login.as_view(),name='login'),
+    path('logout/',views.Logout.as_view(),name='logout'),
+    path('register/',views.Register.as_view(),name='register'),
+    re_path('activate/(?P<activate_id>\w+)',views.Activate.as_view()),
 ]

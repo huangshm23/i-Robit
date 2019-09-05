@@ -25,7 +25,7 @@ SECRET_KEY = 'nv%gz^_3wm0imgez0vnk=yfec5^qml80w94g0^ag*gbbq4@6$f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['129.211.63.182',]
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     #我的应用程序
     'users',
-    'i_robot'
+    'i_robot',
     'rest_framework',
 ]
 

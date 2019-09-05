@@ -49,6 +49,7 @@ export default {
        console.log(this.status);
       if (this.status == 0) {
         this.$store.state.is_login=true
+        this.$store.token = res.body.token
         this.$router.push('/recommendation')
       }
       },function(err){

@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state : {
         is_login:false,
-        result:['A','A','A','A','A','A','A','A','A','A','A','A','A']
+        result:['A','A','A','A','A','A','A','A','A','A','A','A','A'],
+        token:""
     },
     getters:{
         getResult:function(state){

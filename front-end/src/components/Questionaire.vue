@@ -153,21 +153,21 @@ export default {
   methods:{
     submit:function(){
     //把result发给后端，根据返回结果：1转移到组合展示页，2弹出警告
-    this.$http.post('http://129.211.63.182:80/recommendate/',{'questionnaire': {
-      '1': this.$store.state.result[0],
-      '2': this.$store.state.result[1],
-      '3': this.$store.state.result[2],
-      '4': this.$store.state.result[3],
-      '5': this.$store.state.result[4],
-      '6': this.$store.state.result[5],
-      '7': this.$store.state.result[6],
-      '8': this.$store.state.result[7],
-      '9': this.$store.state.result[8],
-      '10': this.$store.state.result[9],
-      '11': this.$store.state.result[10],
-      '12': this.$store.state.result[11],
-      '13': this.$store.state.result[12]
-    }},{emulateJSON:true}).then(function(res){
+    this.$http.post('http://129.211.63.182:80/recommendate/',{'questionnaire': 
+        this.$store.state.result[0] + ',' +
+        this.$store.state.result[1] + ',' +
+        this.$store.state.result[2] + ',' +
+        this.$store.state.result[3] + ',' +
+        this.$store.state.result[4] + ',' +
+        this.$store.state.result[5] + ',' +
+        this.$store.state.result[6] + ',' +
+        this.$store.state.result[7] + ',' +
+        this.$store.state.result[8] + ',' +
+        this.$store.state.result[9] + ',' +
+        this.$store.state.result[10] + ',' +
+        this.$store.state.result[11] + ',' +
+        this.$store.state.result[12]       
+    },{emulateJSON:true}).then(function(res){
       //res.body.recommendation
       this.$store2.commit("updateRate",res.body.expected_rate,res.body.risk_factor);
       var myObj = res.body.recommendation;

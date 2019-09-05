@@ -153,20 +153,20 @@ export default {
   methods:{
     submit:function(){
     //把result发给后端，根据返回结果：1转移到组合展示页，2弹出警告
-    this.$http.post('http://178.128.115.175:80/recommendate/',{'questionnaire': {
-      '1': this.$store.state.result[0] - 'A',
-      '2': this.$store.state.result[1] - 'A',
-      '3': this.$store.state.result[2] - 'A',
-      '4': this.$store.state.result[3] - 'A',
-      '5': this.$store.state.result[4] - 'A',
-      '6': this.$store.state.result[5] - 'A',
-      '7': this.$store.state.result[6] - 'A',
-      '8': this.$store.state.result[7] - 'A',
-      '9': this.$store.state.result[8] - 'A',
-      '10': this.$store.state.result[9] - 'A',
-      '11': this.$store.state.result[10] - 'A',
-      '12': this.$store.state.result[11] - 'A',
-      '13': this.$store.state.result[12] - 'A'
+    this.$http.post('http://129.211.63.182:80/recommendate/',{'questionnaire': {
+      '1': this.$store.state.result[0],
+      '2': this.$store.state.result[1],
+      '3': this.$store.state.result[2],
+      '4': this.$store.state.result[3],
+      '5': this.$store.state.result[4],
+      '6': this.$store.state.result[5],
+      '7': this.$store.state.result[6],
+      '8': this.$store.state.result[7],
+      '9': this.$store.state.result[8],
+      '10': this.$store.state.result[9],
+      '11': this.$store.state.result[10],
+      '12': this.$store.state.result[11],
+      '13': this.$store.state.result[12]
     }},{emulateJSON:true}).then(function(res){
       //res.body.recommendation
       this.$store2.commit("updateRate",res.body.expected_rate,res.body.risk_factor);
@@ -187,7 +187,7 @@ export default {
       this.$store.state.is_login=false
       this.$router.push('/')
       //发送退出请求到后端，返回0成功, 1失败
-      this.$http.get('http://178.128.115.175:80/logout/').then(function(res){
+      this.$http.get('http://129.211.63.182:80/logout/').then(function(res){
                     if (res.body.status)
                       console.log('退出失败'); 
                 },function(){

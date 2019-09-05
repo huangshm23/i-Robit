@@ -15,7 +15,6 @@
       <div v-if="biaoji == 2" @click="submit" class="buhuanhang">提交</div>
       <div v-else class="buhuanhang">待提交</div>
       <router-link :to="{ path: '/signin' }">转到登录</router-link>
-      <div v-if="activate == 1" @click="deactivate" > 激活 </div>
     </div>
 
   </div>
@@ -47,21 +46,18 @@ export default {
   },
   postData:function(){
   //把mailbox，password发送给后端,并获得返回状态字
-  this.$http.post('http://178.128.115.175:80/register/',{username:this.mailbox,password:this.password},{emulateJSON:true}).then(function(res){
+  this.$http.post('http://129.211.63.182:80/register/',{username:this.mailbox,password:this.password},{emulateJSON:true}).then(function(res){
       this.status = res.body.status;
       console.log(res.body.status);
       if (this.status == 0) {
-        this.$store.state.is_login=true
-        this.$router.push('/recommendation')
+        this.$router.push('/signin')
       }
   },function(err){
   console.log(err);
   });
-      this.$store.state.is_login=true
-        this.$router.push('/recommendation')
   },
   deactivate:function(){
-    this.$http.get('http://178.128.115.175:80/activate/<activate_id>').then(function(res){
+    this.$http.get('http://129.211.63.182:80/activate/<activate_id>').then(function(res){
                     if (res.body.status)
                       console.log('激活失败');
                     else  

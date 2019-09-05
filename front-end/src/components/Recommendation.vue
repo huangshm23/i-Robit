@@ -17,7 +17,7 @@ export default {
       this.$store.state.is_login=false
       this.$router.push('/')
       //发送退出请求到后端，返回0成功, 1失败
-      this.$http.get('http://178.128.115.175:80/logout/').then(function(res){
+      this.$http.get('http://129.211.63.182:80/logout/').then(function(res){
                     if (res.body.status)
                       console.log('退出失败'); 
                 },function(){

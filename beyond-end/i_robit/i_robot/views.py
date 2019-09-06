@@ -1,22 +1,20 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
+#from django.shortcuts import render
 from django.db.models import Q
 from .models import News
 from django.http import JsonResponse
 
-from model.recommendate import recommendate
-from model.simulation import simulation
-import json
+from model.interface import recommendate,simulation
+
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
-
+from auth import Authtication
 
 # Create your views here.
 
 @method_decorator(csrf_exempt, name='dispatch')
 class NewsView(APIView):
-
+    authentication_classes = [Authtication,]
     def get(self, request, news_id):
 
         if news_id:
@@ -47,19 +45,30 @@ class NewsView(APIView):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class RecommendateView(APIView):
+
+    authentication_classes = [Authtication,]
+
     def post(self, request):
-        questionnaire = request.POST.get('questionnaire')
+        questionnaire = request.data['questionnaire']
+        questionnaire=list(questionnaire.split(','))
         result = recommendate(questionnaire)
         return JsonResponse(result)
+        
     def get(self, request):
         return JsonResponse({})
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class SimulationView(APIView):
+
+    authentication_classes = [Authtication,]
+
     def post(self, request):
-        fund_ratio = request.POST.get('fund_ratio')
+        fund_ratio = eval(request.data['fund_ratio'])   
         result = simulation(fund_ratio)
+        if result is None:
+            return JsonResponse({'status':1,'err':'权值和不为1'})
         return JsonResponse(result)
+
     def get(self, request):
         return JsonResponse({})

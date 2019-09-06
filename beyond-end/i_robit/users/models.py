@@ -1,11 +1,5 @@
 from django.db import models
 
-
-
-    # Create your models here.
-
-
-
 class User(models.Model):
 
     #gender_choice = [('male','男'),('female','女'),]
@@ -26,9 +20,14 @@ class User(models.Model):
 class UserToken(models.Model):
     token = models.CharField(max_length=128)
     user = models.OneToOneField(to='User',on_delete=models.CASCADE)
+    created_time = models.DateTimeField(auto_now=True)
         
     def __str__(self):
         return self.token
+
+    class Meta:
+        verbose_name = 'token验证'
+        verbose_name_plural = verbose_name
 
 class Email_auth(models.Model):
     '''用于邮箱验证'''

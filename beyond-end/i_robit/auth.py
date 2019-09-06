@@ -1,6 +1,8 @@
 import hashlib
 import random
-import time
+from datetime import datetime,timedelta
+from django.core.cache import cache
+from django.utils.timezone import utc
 from django.http import JsonResponse
 from users.models import UserToken
 from rest_framework import exceptions
@@ -19,7 +21,7 @@ def exception_handler(exception,context):
 
 
 #获取随机激活码
-def get_activate_id(id_length=6):
+def get_activate_id(id_length=8):
     seq = '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'
     length = len(seq)-1
     activate_id = ''
@@ -41,15 +43,25 @@ class Authtication(BaseAuthentication):
     
     def authenticate(self,request):
         token = request._request.GET.get('token')
+
+        token_obj = cache.get(token,None)
+        if token_obj:
+            return (token_obj.user,token_obj)
+
         token_obj = UserToken.objects.filter(token=token).first()
         if token_obj is None:
             raise exceptions.AuthenticationFailed('用户认证失败')
-        #双重验证: token是否存在 以及 token和用户是否对应
-        user = token_obj.user
-        if user.token != token:
-            raise exceptions.AuthenticationFailed('用户认证失败')
+        
+        cur_time = datetime.utcnow().replace(tzinfo=utc)
 
-        return (user,token_obj)
+        if cur_time - timedelta(hours=6)>token_obj.created_time:
+            token_obj.delete()
+            raise exceptions.AuthenticationFailed('token失效')
+
+        cache.set(token,token_obj,100)   
+
+        return (token_obj.user,token_obj)
+
     
     def authenticate_header(self,request):
         pass

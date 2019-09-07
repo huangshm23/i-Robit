@@ -27,6 +27,8 @@ class NewsView(APIView):
                 return JsonResponse({'status': 0})
         else:
             news = News.objects.order_by("?").first()
+            if not news:
+                return JsonResponse({'status': 0})
             news_id = news.id
 
         other_news = News.objects.filter(~Q(id=news_id)).order_by("?")[:2]

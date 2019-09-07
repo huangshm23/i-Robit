@@ -13,6 +13,7 @@ from rest_framework.views import exception_handler as django_exception_handler
 def exception_handler(exception,context):
     '''自定义异常处理'''
     response = django_exception_handler(exception,context)
+    print(exception)
     if response is None:
         return JsonResponse({'status':0,'err':'服务器内部错误'})
     return JsonResponse({'status':2019,'err':'异常处理'})

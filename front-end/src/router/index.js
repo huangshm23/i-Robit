@@ -15,7 +15,7 @@ export default new Router({
     {
       path: '/',
       name: 'signin',
-      component: recommendation,
+      component: signin,
       //redirect: '/signin',
       meta: {
         login_require: false

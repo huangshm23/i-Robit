@@ -3,10 +3,14 @@
     <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box" id="denglukuan">
       <h3 class="login-title">欢迎登录</h3>
       <el-form-item label="账号" prop="mailbox">
-        <el-input type="text" placeholder="请输入账号" v-model="form.mailbox"/>
+        <el-tooltip class="item" effect="dark" content="正确格式: 1...2@qq.com" placement="right">
+          <el-input type="text" placeholder="请输入账号" v-model="form.mailbox"/>
+        </el-tooltip>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
+        <el-tooltip class="item" effect="dark" content="正确格式: 1...6" placement="right">
+          <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
+        </el-tooltip>
       </el-form-item>
       <el-form-item>
         <el-button v-if="biaoji==2" type="success" @click.native="submit" class="dengluanniu">登录</el-button>

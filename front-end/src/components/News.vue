@@ -1,5 +1,6 @@
 <template>
   <div id="news">
+    <el-backtop :bottom="60"></el-backtop>
     <el-menu :default-active="activeIndex" mode="horizontal" background-color="#284EA5" text-color="#fff" active-text-color="#ffd04b">
         <el-menu-item index=1 class="tag">
             <router-link :to="{ path: '/recommendation' }">组合推荐</router-link>
@@ -19,13 +20,15 @@
         <div v-html="msg.new_body"></div>
       </div>
       <div id="new_footer">
-        <p>{{msg.datetime}}</P>
-        <p>{{msg.source}}</p>
-        <p>{{msg.source_url}}</p>
+        <p>日期 : {{msg.datetime}}</P>
+        <p>来源 : {{msg.source}}</p>
+        <p>链接 : {{msg.source_url}}</p>
       </div>
     </div>
-    <el-button @click.native="prev">上一条</el-button>
-    <el-button @click.native="next">下一条</el-button>
+    <el-button-group>
+      <el-button type="primary" @click.native="prev" icon="el-icon-arrow-left">上一条</el-button>
+      <el-button type="primary" @click.native="next">下一条<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+    </el-button-group>
   </div>
 </template>
 
@@ -104,7 +107,8 @@ a{
   margin-right: auto;
   margin-top: 20px;
   margin-bottom: 10px;
-  min-height: 500px;
+  min-height: 1500px;
+  position: relative;
 }
 #new_header{
   background-color:#BBB;
@@ -115,11 +119,17 @@ a{
   background-color:#BBB;
   font-size: 24px;
   overflow: hidden;
+  position: absolute;
+  bottom:0px;
   width: 100%;
 }
 #new_footer > p{
-  text-align: right;
+  text-align: left;
   line-height: 5px;
-  margin-right: 10px;
+  margin-left: 30%;
+}
+.up{
+    height: 100vh;
+	  overflow-y: scroll;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div id="exhibition">
+    <el-backtop :bottom="60"></el-backtop>
     <el-menu :default-active="activeIndex" mode="horizontal" background-color="#284EA5" text-color="#fff" active-text-color="#ffd04b">
         <el-menu-item index=1 class="tag">
             <router-link :to="{ path: '/recommendation' }">组合推荐</router-link>

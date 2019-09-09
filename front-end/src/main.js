@@ -7,6 +7,10 @@ import VueResource from 'vue-resource'
 import store from './vuex/store'
 import store2 from './vuex/store'
 
+import ElementUI from 'element-ui' //element-ui的全部组件
+import 'element-ui/lib/theme-chalk/index.css'//element-ui的css
+Vue.use(ElementUI) //使用elementUI
+
 Vue.use(VueResource)
 
 Vue.config.productionTip = false

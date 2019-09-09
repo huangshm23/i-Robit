@@ -1,17 +1,42 @@
 <template>
   <div id="recommendation">
-    <router-link :to="{ path: '/recommendation' }">组合推荐</router-link>
-    <router-link :to="{ path: '/news' }">新闻推荐</router-link>
-    <button @click="logout" class="buhuanhang">退出登录</button>
-    <hr>
-    <h1>Recommendation</h1>
-    <router-link :to="{ path: '/Questionaire' }">开始推荐</router-link>
+    <el-menu :default-active="activeIndex" mode="horizontal" background-color="#284EA5" text-color="#fff" active-text-color="#ffd04b">
+        <el-menu-item index=1 class="tag">
+            <router-link :to="{ path: '/recommendation' }">组合推荐</router-link>
+        </el-menu-item>
+        <el-menu-item index=2 class="tag">
+            <router-link :to="{ path: '/news' }">新闻推荐</router-link>
+        </el-menu-item>
+        <el-menu-item index=3 class="tag">
+            <router-link :to="{ path: '/'}" @click.native="logout">退出账号</router-link>
+        </el-menu-item>
+    </el-menu>
+    <div id="position">
+    <el-carousel interval="0" arrow="always" :height="imgHeight">
+      <el-carousel-item v-for="item in imgs" :key="item.id">
+        <el-row>
+          <el-col :span="24"><img ref="imgs" :src="item.idView" class="banner_img"/></el-col>
+        </el-row>
+      </el-carousel-item>
+    </el-carousel>
+    <el-button id="button" @click="submit">开始投资</el-button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Recommendation',
+  data(){
+    return{
+      imgs: [
+          {id: 0, name:'0', idView: require('../assets/model3.png')},
+          {id: 1, name: '1', idView: require('../assets/model2.png')},
+          {id: 2, name: '2', idView: require('../assets/model1.png')}
+        ],
+        imgHeight:'500px'
+    }
+  },
   methods:{
     logout:function(){
       this.$store.state.is_login=false
@@ -31,5 +56,31 @@ export default {
 <style>
 .buhuanhang{
   display:inline
+}
+.tag{
+  width: 120px;
+  font-size: 18px;
+}
+a{
+  text-decoration: none;
+}
+.banner_img{
+  height:500px;
+  width:400px;
+}
+#position{
+  border:5px solid #284EA5;
+  width: 60%;
+  min-width: 600px;
+  max-width: 800px;
+  height:auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+#button{
+  margin-top: 10px;
+  margin-bottom: 50px;
 }
 </style>

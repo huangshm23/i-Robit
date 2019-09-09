@@ -1,12 +1,31 @@
 <template>
   <div id="news">
-    <router-link :to="{ path: '/recommendation' }">组合推荐</router-link>
-    <router-link :to="{ path: '/news' }">新闻推荐</router-link>
-    <button @click="logout" class="buhuanhang">退出登录</button>
-    <hr>
-    <h1>News</h1>
-    <div v-html="msg"></div>
-    <button @click="submit">下一条</button>
+    <el-menu :default-active="activeIndex" mode="horizontal" background-color="#284EA5" text-color="#fff" active-text-color="#ffd04b">
+        <el-menu-item index=1 class="tag">
+            <router-link :to="{ path: '/recommendation' }">组合推荐</router-link>
+        </el-menu-item>
+        <el-menu-item index=2 class="tag">
+            <router-link :to="{ path: '/news' }">新闻推荐</router-link>
+        </el-menu-item>
+        <el-menu-item index=3 class="tag">
+            <router-link :to="{ path: '/'}" @click.native="logout">退出账号</router-link>
+        </el-menu-item>
+    </el-menu>
+    <div id=new>
+      <div id="new_header">
+        {{msg.title}}
+      </div>
+      <div>
+        <div v-html="msg.new_body"></div>
+      </div>
+      <div id="new_footer">
+        <p>{{msg.datetime}}</P>
+        <p>{{msg.source}}</p>
+        <p>{{msg.source_url}}</p>
+      </div>
+    </div>
+    <el-button @click="prev">上一条</el-button>
+    <el-button @click="next">下一条</el-button>
   </div>
 </template>
 
@@ -15,7 +34,15 @@ export default {
   name: 'News',
   data(){
     return{
-      msg:"<p>新闻</p>"
+      activeIndex:'1',
+      msg:{
+        status:0,
+        title:"新闻标题",
+        datetime:"2019-10-01",
+        source:"中国新闻网",
+        source_url:"http://www.baidu.com",
+        new_body:"<p>新闻内容</P>"
+      }
     }
   },
   methods:{
@@ -45,5 +72,37 @@ export default {
 <style>
 .buhuanhang{
   display:inline
+}
+.tag{
+  width: 120px;
+  font-size: 18px;
+}
+a{
+  text-decoration: none;
+}
+#new{
+  border:5px solid #284EA5;
+  width: 80%;
+  height:auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+#new_header{
+  background-color:#BBB;
+  font-size: 40px;
+  overflow: hidden;
+}
+#new_footer{
+  background-color:#BBB;
+  font-size: 24px;
+  overflow: hidden;
+  width: 100%;
+}
+#new_footer > p{
+  text-align: right;
+  line-height: 5px;
+  margin-right: 10px;
 }
 </style>

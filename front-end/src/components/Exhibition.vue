@@ -1,13 +1,51 @@
 <template>
   <div id="exhibition">
-    <router-link :to="{ path: '/recommendation' }">组合推荐</router-link>
-    <router-link :to="{ path: '/news' }">新闻推荐</router-link>
-    <button @click="logout" class="buhuanhang">退出登录</button>
-    <hr>
-    <h1>Exhibition</h1>
-    <div>显示组合</div>
-    <div>{{msg}}</div>
-    <button @click="simulation">模拟</button>
+    <el-menu :default-active="activeIndex" mode="horizontal" background-color="#284EA5" text-color="#fff" active-text-color="#ffd04b">
+        <el-menu-item index=1 class="tag">
+            <router-link :to="{ path: '/recommendation' }">组合推荐</router-link>
+        </el-menu-item>
+        <el-menu-item index=2 class="tag">
+            <router-link :to="{ path: '/news' }">新闻推荐</router-link>
+        </el-menu-item>
+        <el-menu-item index=3 class="tag">
+            <router-link :to="{ path: '/'}" @click.native="logout">退出账号</router-link>
+        </el-menu-item>
+    </el-menu>
+    <div id="position">
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-card v-if="riskVisiable" shadow="hover"  body-style="padding:10px">
+            <div slot="header" class="clearfix">预期收益率</div>
+            {{this.$store.state.combination.expected_rate}}
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-card  v-if="riskVisiable" shadow="hover" body-style="padding:10px">
+            <div slot="header" class="clearfix">风险等级</div>
+            {{this.$store.state.combination.risk_factor}}
+          </el-card>
+        </el-col>
+        <el-col :span="8" id="step">
+          <el-card shadow="hover" body-style="padding:0px">
+            <div slot="header" class="clearfix">步长</div>
+            <el-input-number v-model="step" :min="0" :max="0.1" :precision="2" :step="0.01"></el-input-number>
+          </el-card>
+        </el-col>
+      </el-row>
+      <div id="table">
+        <el-table :data="this.$store.state.combination.recommendation" border >
+          <el-table-column type="index" ></el-table-column>
+          <el-table-column prop="name" label="名称" min-width="80%"></el-table-column>
+          <el-table-column >
+            <template slot="header">比例</template>
+            <template slot-scope="scope">
+              <el-input-number v-model="scope.row.ratio" @change="handleChange(scope.$index)" :min="0" :max="1" :precision="4" :step="step"></el-input-number>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <el-button type="success" @click="simulation">模 拟</el-button>
+    </div>
   </div>
 </template>
 
@@ -16,7 +54,11 @@ export default {
   name: 'Exhibition',
   data(){
     return{
-        msg:""
+        msg:"",
+        step:0.05,
+        riskVisiable:true,
+        rateVisiable:true,
+        activeIndex:'1',
     }
   },
   methods:{
@@ -40,7 +82,19 @@ export default {
       },function(err){
       console.log(err);
       });
+    },
+    handleChange:function(index){
+      var len=this.$store.state.combination.recommendation.length;
+      this.riskVisiable=false;
+      this.rateVisiable=false;
+      for(var i=0;i<len;i++){
+        this.$store.state.combination.recommendation[i].ratio*=1/(1+this.step);
+      }
     }
+  },
+  mounted:function(){
+    this.step=0.01*(this.$store.state.combination.recommendation.length-1);
+    //this.risk_factor=this.$store.state.combination.risk_factor;
   }
 }
 </script>
@@ -48,5 +102,30 @@ export default {
 <style>
 .buhuanhang{
   display:inline
+}
+.tag{
+  width: 120px;
+  font-size: 18px;
+}
+a{
+  text-decoration: none;
+}
+#position{
+  border:5px solid #284EA5;
+  width: 60%;
+  min-width: 600px;
+  max-width: 800px;
+  height:auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  min-height: 500px;
+}
+#table{
+  margin: 10px;
+}
+#step{
+  float: right;
 }
 </style>

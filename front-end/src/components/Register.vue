@@ -9,10 +9,8 @@
         <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
       </el-form-item>
       <el-form-item>
-        <el-button v-if="biaoji==2 && activate==0" type="success" @click.native="submit">注册</el-button>
+        <el-button v-if="biaoji==2" type="success" @click.native="submit">注册</el-button>
         <el-button v-else type="info" @click.native="false_submit">注册</el-button>
-        <el-button v-if="biaoji==2"  type="success" @click.native="deactivate">激活</el-button>
-        <el-button v-else type="info" @click.native="false_submit">激活</el-button>
       </el-form-item>
     </el-form>
     <el-menu id="daohang" :default-active="activeIndex" mode="horizontal" background-color="#fff" text-color="#fff" active-text-color="#ffd04b">
@@ -119,10 +117,10 @@ export default {
     this.$router.push('/register');
   },
   false_deactivate:function (){
-    alert("请正确填写必要信息");
+    alert("未正确填写必要信息");
   },
   false_submit:function (){
-    alert("请正确填写必要信息");
+    alert("未激活");
   }
   }
 }

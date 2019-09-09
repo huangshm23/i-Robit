@@ -2,8 +2,8 @@
   <div class="signin">
     <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box" id="denglukuan">
       <h3 class="login-title">欢迎登录</h3>
-      <el-form-item label="账号" prop="username">
-        <el-input type="text" placeholder="请输入账号" v-model="form.username"/>
+      <el-form-item label="账号" prop="mailbox">
+        <el-input type="text" placeholder="请输入账号" v-model="form.mailbox"/>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
@@ -61,7 +61,7 @@ export default {
     };
     return {
       form: {
-          username: '',
+          mailbox: '',
           password: ''
       },
       jy1:false,
@@ -73,7 +73,7 @@ export default {
       password:'',
     // 表单验证，需要在 el-form-item 元素中增加 prop 属性
     rules: {
-      username: [
+      mailbox: [
         {validator:checkEmail, message:'请输入正确的邮箱',trigger:'blur'},
       ],
       password: [
@@ -97,10 +97,10 @@ export default {
       //把mailbox，password发送给后端,并获得返回状态字
       this.$http.post('http://129.211.63.182:80/login/',{username:this.form.mailbox,password:this.form.password},{emulateJSON:true}).then(function(res){
       this.status = res.body.status;
-       console.log(this.status);
+      console.log(this.status);
       if (this.status == 0) {
         this.$store.state.is_login=true
-        this.$store.token = res.body.token
+        this.$store.state.token = res.body.token
         this.$router.push('/recommendation')
       }
       },function(err){

@@ -9,14 +9,12 @@
         <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
       </el-form-item>
       <el-form-item>
-        <el-button v-if="biaoji==2" type="success" @click.native="submit">登录</el-button>
-        <el-button v-else type="info" @click.native="false_submit">登录</el-button>
+        <el-button v-if="biaoji==2" type="success" @click.native="submit" class="dengluanniu">登录</el-button>
+        <el-button v-else type="info" @click.native="false_submit" class="dengluanniu">登录</el-button>
       </el-form-item>
     </el-form>
-    <el-menu id="daohang" :default-active="activeIndex" mode="horizontal" background-color="#fff" text-color="#fff" active-text-color="#ffd04b">
-        <el-button type="primary" @click.native="denglu" >登录页</el-button>
-        <el-button type="primary" @click.native="zuce" >注册页</el-button>
-    </el-menu>
+    <el-button type="primary" @click.native="denglu" >登录页</el-button>
+    <el-button type="primary" @click.native="zuce" >注册页</el-button>
   </div>
 </template>
 
@@ -127,7 +125,7 @@ export default {
 .login-box {
     border: 1px solid #DCDFE6;
     width: 350px;
-    margin: 180px auto;
+    margin: 180px auto 20px auto;
     padding: 35px 35px 15px 35px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -136,7 +134,7 @@ export default {
   }
 .login-title {
     text-align: center;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 20px auto;
     color: #303133;
   }
 #daohang{
@@ -145,5 +143,8 @@ export default {
 }
 #denglukuan {
   margin-top: 20px;
+}
+.dengluanniu{
+  float: right;
 }
 </style>

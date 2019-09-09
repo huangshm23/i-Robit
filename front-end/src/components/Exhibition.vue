@@ -12,6 +12,11 @@
         </el-menu-item>
     </el-menu>
     <div id="position">
+      <div v-if="riskVisiable" class="msg">{{msg1}}</div>
+      <div v-else class="msg">{{msg2}}</div>
+      <div id="charts">
+        <ve-pie :data="chartData" :settings="chartSettings"></ve-pie>
+      </div>
       <el-row :gutter="20">
         <el-col :span="8">
           <el-card v-if="riskVisiable" shadow="hover"  body-style="padding:10px">
@@ -53,12 +58,21 @@
 export default {
   name: 'Exhibition',
   data(){
+    this.chartSettings = {
+        dimension: 'name',
+        metrics: 'ratio'
+    }
     return{
-        msg:"",
+        msg1:"推荐的组合",
+        msg2:"自定义组合",
         step:0.05,
         riskVisiable:true,
         rateVisiable:true,
         activeIndex:'1',
+        chartData: {
+          columns: ['name', 'ratio'],
+          rows: []
+        }
     }
   },
   methods:{
@@ -94,7 +108,7 @@ export default {
   },
   mounted:function(){
     this.step=0.01*(this.$store.state.combination.recommendation.length-1);
-    //this.risk_factor=this.$store.state.combination.risk_factor;
+    this.chartData.rows=this.$store.state.combination.recommendation;
   }
 }
 </script>
@@ -120,6 +134,7 @@ a{
   margin-right: auto;
   margin-top: 20px;
   margin-bottom: 10px;
+  padding-bottom: 20px;
   min-height: 500px;
 }
 #table{
@@ -127,5 +142,11 @@ a{
 }
 #step{
   float: right;
+}
+.msg{
+  font-size: 30px;
+  color: #284EA5;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>

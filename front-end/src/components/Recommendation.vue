@@ -198,17 +198,12 @@ export default {
                     console.log('请求失败处理');
                 });
     },
-<<<<<<< HEAD
     handleClose:function(){
 
     },
     submit:function(){
     for (var i = 0; i < this.answer.length; i++) { 
       this.$store.state.result[i]=this.answer[i];
-=======
-    submit:function(){
-      this.$router.push('/questionaire')
->>>>>>> f43ef4638929a577a1efffca4081fb4cac4d1a3c
     }
     //把result发给后端，根据返回结果：1转移到组合展示页，2弹出警告
     this.$http.post('http://129.211.63.182:80/recommendate/',{'questionnaire': 

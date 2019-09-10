@@ -52,6 +52,12 @@ class RecommendateView(APIView):
         questionnaire = request.data['questionnaire']
         questionnaire=list(questionnaire.split(','))
         result = recommendate(questionnaire)
+        if result != {}:
+            recommendation = eval(result['recommendation'])
+            result['recommendation'] = []
+            for name,ratio in recommendation.items():
+                fund = {'name':name,'ratio':ratio}
+                result['recommendation'].append(fund)
         return JsonResponse(result)
         
     def get(self, request):

@@ -94,7 +94,7 @@ export default {
     },
     postData:function(){
   //把mailbox，password发送给后端,并获得返回状态字
-  this.$http.post('http://129.211.63.182:80/register/',{username:this.form.username,password:this.form.password},{emulateJSON:true}).then(function(res){
+  this.$http.post(this.store2.state.basicUrl + 'register/',{username:this.form.username,password:this.form.password},{emulateJSON:true}).then(function(res){
       this.status = res.body.status;
       console.log(res.body.status);
       if (this.status == 0) {
@@ -105,7 +105,7 @@ export default {
   });
   },
   deactivate:function(){
-    this.$http.get('http://129.211.63.182:80/activate/<activate_id>').then(function(res){
+    this.$http.get(this.store2.state.basicUrl + 'activate/<activate_id>').then(function(res){
                     if (res.body.status)
                       console.log('激活失败');
                     else  

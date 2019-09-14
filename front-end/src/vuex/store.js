@@ -44,7 +44,6 @@ const store = new Vuex.Store({
             for (var x in n) {
                 state.funds[x] = n[x];
               }
-            console.log(state.funds,"enter");
         },
         updateRate:function(state,n){
             state.rate=n[0]

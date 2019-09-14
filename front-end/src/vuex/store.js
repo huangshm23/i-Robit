@@ -46,6 +46,7 @@ const store2 = new Vuex.Store({
         rate:0,
         risk_factor:0,
         basicUrl:'http://178.128.115.175:80/'
+    },
     getters:{
         getResult:function(state){
             return state.funds

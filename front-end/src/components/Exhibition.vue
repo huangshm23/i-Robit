@@ -93,7 +93,8 @@ export default {
     this.$http.post(this.$store.state.basicUrl + 'simulation/?token=' + this.$store.state.token,{
         'fund_ratio': this.$store.state.combination.recommendation
     },{emulateJSON:true}).then(function(res){
-      msg = "预期收益率： " + res.body.expected_rate;
+      this.$store.state.combination.expected_rate = res.body.expected_rate;
+      this.rateVisiable = true;
       },function(err){
       console.log(err);
       });

@@ -8,7 +8,7 @@
         </el-tooltip>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-tooltip class="item" effect="dark" content="正确格式: 1...6" placement="right">
+        <el-tooltip class="item" effect="dark" content="正确格式: 6为数字" placement="right">
           <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
         </el-tooltip>
       </el-form-item>

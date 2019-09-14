@@ -40,7 +40,7 @@ export default new Router({
       name: 'news',
       component: news,
       meta: {
-        login_require: true
+        login_require: false
       },
     },
     {
@@ -48,7 +48,7 @@ export default new Router({
       name: 'recommendation',
       component: recommendation,
       meta: {
-        login_require: true
+        login_require: false
       },
     },
     {
@@ -56,7 +56,7 @@ export default new Router({
       name: 'exhibition',
       component: exhibition,
       meta: {
-        login_require: true
+        login_require: false
       },
     }
   ]

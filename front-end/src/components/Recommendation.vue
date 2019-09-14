@@ -207,7 +207,7 @@ export default {
       this.$store.state.result[i]=this.answer[i];
     }
     //把result发给后端，根据返回结果：1转移到组合展示页，2弹出警告
-    this.$http.post('http://129.211.63.182:80/recommendate/',{'questionnaire': 
+    this.$http.post('http://129.211.63.182:80/recommendate/?token=' + this.$store.state.token,{'questionnaire': 
         this.$store.state.result[0] + ',' +
         this.$store.state.result[1] + ',' +
         this.$store.state.result[2] + ',' +

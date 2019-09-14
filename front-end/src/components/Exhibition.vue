@@ -90,7 +90,7 @@ export default {
     },
     simulation:function(){
         //把基金种类发送给后端，得到预期收益，赋值给msg
-    this.$http.post('http://178.128.115.175:80/simulation/',{
+    this.$http.post('http://178.128.115.175:80/simulation/?token=' + this.$store.state.token,{
         'fund_ratio': this.$store2.state.funds
     },{emulateJSON:true}).then(function(res){
       msg = "预期收益率： " + res.body.expected_rate;

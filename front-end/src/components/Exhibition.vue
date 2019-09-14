@@ -90,10 +90,11 @@ export default {
     },
     simulation:function(){
         //把基金种类发送给后端，得到预期收益，赋值给msg
-    this.$http.post(this.$store2.state.basicUrl + 'simulation/?token=' + this.$store.state.token,{
-        'fund_ratio': this.$store2.state.funds
+    this.$http.post(this.$store.state.basicUrl + 'simulation/?token=' + this.$store.state.token,{
+        'fund_ratio': this.$store.state.combination.recommendation
     },{emulateJSON:true}).then(function(res){
-      msg = "预期收益率： " + res.body.expected_rate;
+      this.$store.state.combination.expected_rate = res.body.expected_rate;
+      this.rateVisiable = true;
       },function(err){
       console.log(err);
       });
@@ -109,9 +110,6 @@ export default {
     }
   },
   mounted:function(){
-  this.$store.state.combination.recommendation=this.$store2.state.fund;
-  this.$store.state.combination.expected_rate=this.$store2.state.rate;
-  this.$store.state.combination.risk_factor=this.$store2.state.risk_factor;
     this.step=0.01*(this.$store.state.combination.recommendation.length-1);
     this.chartData.rows=this.$store.state.combination.recommendation;
   }

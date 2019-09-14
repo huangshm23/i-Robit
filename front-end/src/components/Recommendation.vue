@@ -207,7 +207,7 @@ export default {
       this.$store.state.result[i]=this.answer[i];
     }
     //把result发给后端，根据返回结果：1转移到组合展示页，2弹出警告
-    this.$http.post('http://129.211.63.182:80/recommendate/?token=' + this.$store.state.token,{'questionnaire': 
+    this.$http.post(this.$store.state.basicUrl + 'recommendate/?token=' + this.$store.state.token,{'questionnaire': 
         this.$store.state.result[0] + ',' +
         this.$store.state.result[1] + ',' +
         this.$store.state.result[2] + ',' +
@@ -223,11 +223,8 @@ export default {
         this.$store.state.result[12]       
     },{emulateJSON:true}).then(function(res){
       //res.body.recommendation
-      this.$store2.commit("updateRate",res.body.expected_rate,res.body.risk_factor);
-      var myObj = res.body.recommendation;
-      for (x in myObj) {
-        this.$store2.commit("updateFund",x,myObj[x]);
-      }
+      this.$store.commit("updateRate",[res.body.expected_rate,res.body.risk_factor]);
+      this.$store.commit("updateFund",res.body.recommendation);
       this.$router.push('/exhibition')
       },function(err){
       console.log(err);

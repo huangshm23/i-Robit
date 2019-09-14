@@ -8,6 +8,10 @@ const store = new Vuex.Store({
         is_login:false,
         result:['A','A','A','A','A','A','A','A','A','A','A','A','A'],
         token:"",
+        funds:[{}],
+        rate:0,
+        risk_factor:0,
+        basicUrl:'http://178.128.115.175:80/',
         combination:{
             recommendation:[
                 {
@@ -35,30 +39,13 @@ const store = new Vuex.Store({
     mutations:{
         update:function(state,n){
             state.result[n.num]=n.value
-        }
-    }
-})
-
-const store2 = new Vuex.Store({
-    state : {
-        is_login:false,
-        funds:[],
-        rate:0,
-        risk_factor:0
-        baiscUrl:'http://178.128.115.175:80/'
-    },
-    getters:{
-        getResult:function(state){
-            return state.funds
-        }
-    },
-    mutations:{
-        updateFund:function(state,name,radio){
-            state.funds[name]=radio
         },
-        updateRate:function(state,rate1,risk){
-            state.rate=rate1
-            state.risk_factor = risk
+        updateFund:function(state,n){
+            state.funds = n
+        },
+        updateRate:function(state,n){
+            state.rate=n[0]
+            state.risk_factor = n[1]
         }
     }
 })

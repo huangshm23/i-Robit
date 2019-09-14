@@ -97,7 +97,7 @@ export default {
     },
     postData:function(){
       //把mailbox，password发送给后端,并获得返回状态字
-      this.$http.post(this.store2.state.basicUrl + 'login/',{username:this.form.mailbox,password:this.form.password},{emulateJSON:true}).then(function(res){
+      this.$http.post(this.$store2.state.basicUrl + 'login/',{username:this.form.mailbox,password:this.form.password},{emulateJSON:true}).then(function(res){
       this.status = res.body.status;
       console.log(this.status);
       if (this.status == 0) {

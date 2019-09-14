@@ -81,7 +81,7 @@ export default {
       this.$store.state.is_login=false
       this.$router.push('/')
       //发送退出请求到后端，返回0成功, 1失败
-      this.$http.get('http://178.128.115.175:80/logout/').then(function(res){
+      this.$http.get(this.$store2.state.basicUrl + 'logout/').then(function(res){
                     if (res.body.status)
                       console.log('退出失败'); 
                 },function(){
@@ -90,7 +90,7 @@ export default {
     },
     simulation:function(){
         //把基金种类发送给后端，得到预期收益，赋值给msg
-    this.$http.post('http://178.128.115.175:80/simulation/',{
+    this.$http.post(this.$store2.state.basicUrl + 'simulation/?token=' + this.$store.state.token,{
         'fund_ratio': this.$store2.state.funds
     },{emulateJSON:true}).then(function(res){
       msg = "预期收益率： " + res.body.expected_rate;
@@ -109,6 +109,9 @@ export default {
     }
   },
   mounted:function(){
+  this.$store.state.combination.recommendation=this.$store2.state.fund;
+  this.$store.state.combination.expected_rate=this.$store2.state.rate;
+  this.$store.state.combination.risk_factor=this.$store2.state.risk_factor;
     this.step=0.01*(this.$store.state.combination.recommendation.length-1);
     this.chartData.rows=this.$store.state.combination.recommendation;
   }

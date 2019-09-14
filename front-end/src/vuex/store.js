@@ -8,7 +8,7 @@ const store = new Vuex.Store({
         is_login:false,
         result:['A','A','A','A','A','A','A','A','A','A','A','A','A'],
         token:"",
-        funds:[{}],
+        funds:[{ }],
         rate:0,
         risk_factor:0,
         basicUrl:'http://178.128.115.175:80/',
@@ -41,7 +41,10 @@ const store = new Vuex.Store({
             state.result[n.num]=n.value
         },
         updateFund:function(state,n){
-            state.funds = n
+            for (var x in n) {
+                state.funds[x] = n[x];
+              }
+            console.log(state.funds,"enter");
         },
         updateRate:function(state,n){
             state.rate=n[0]

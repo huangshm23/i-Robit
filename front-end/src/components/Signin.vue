@@ -8,7 +8,7 @@
         </el-tooltip>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-tooltip class="item" effect="dark" content="正确格式: 1...6" placement="right">
+        <el-tooltip class="item" effect="dark" content="正确格式: 6为数字" placement="right">
           <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
         </el-tooltip>
       </el-form-item>
@@ -97,7 +97,7 @@ export default {
     },
     postData:function(){
       //把mailbox，password发送给后端,并获得返回状态字
-      this.$http.post('http://129.211.63.182:80/login/',{username:this.form.mailbox,password:this.form.password},{emulateJSON:true}).then(function(res){
+      this.$http.post(this.$store2.state.basicUrl + 'login/',{username:this.form.mailbox,password:this.form.password},{emulateJSON:true}).then(function(res){
       this.status = res.body.status;
       console.log(this.status);
       if (this.status == 0) {

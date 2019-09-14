@@ -5,7 +5,6 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import store from './vuex/store'
-import store2 from './vuex/store'
 import VCharts from 'v-charts'
 
 import ElementUI from 'element-ui' //element-ui的全部组件
@@ -24,7 +23,6 @@ new Vue({
   components: { App },
   template: '<App/>',
   store,
-  store2
 })
 
 router.beforeEach((to,from,next)=>{

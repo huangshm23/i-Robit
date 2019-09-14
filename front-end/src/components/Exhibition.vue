@@ -45,7 +45,7 @@
           <el-table-column >
             <template slot="header">比例</template>
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.ratio" @change="handleChange(scope.$index)" :min="0" :max="1" :precision="4" :step="step"></el-input-number>
+              <el-input-number v-model="scope.row.ratio" @change="(newval,oldval) => handleChange(newval,oldval,scope.$index)" :min="0" :max="1" :precision="4" :step="step"></el-input-number>
             </template>
           </el-table-column>
         </el-table>
@@ -98,12 +98,13 @@ export default {
       console.log(err);
       });
     },
-    handleChange:function(index){
+    handleChange:function(newval,oldval,index){
+      var s=newval-oldval
       var len=this.$store.state.combination.recommendation.length;
       this.riskVisiable=false;
       this.rateVisiable=false;
       for(var i=0;i<len;i++){
-        this.$store.state.combination.recommendation[i].ratio*=1/(1+this.step);
+        this.$store.state.combination.recommendation[i].ratio*=1/(1+s);
       }
     }
   },

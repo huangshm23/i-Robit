@@ -241,11 +241,8 @@ export default {
         this.$store.state.result[12]       
     },{emulateJSON:true}).then(function(res){
       //res.body.recommendation
-      this.$store.commit("updateRate",res.body.expected_rate,res.body.risk_factor);
-      var myObj = res.body.recommendation;
-      for (var x in myObj) {
-        this.$store.commit("updateFund",x,myObj[x]);
-      }
+      this.$store.commit("updateRate",[res.body.expected_rate,res.body.risk_factor]);
+      this.$store.commit("updateFund",res.body.recommendation);
       this.$router.push('/exhibition')
       },function(err){
       console.log(err);

@@ -109,6 +109,9 @@ export default {
     }
   },
   mounted:function(){
+  this.$store.state.combination.recommendation=this.$store2.state.fund;
+  this.$store.state.combination.expected_rate=this.$store2.state.rate;
+  this.$store.state.combination.risk_factor=this.$store2.state.risk_factor;
     this.step=0.01*(this.$store.state.combination.recommendation.length-1);
     this.chartData.rows=this.$store.state.combination.recommendation;
   }

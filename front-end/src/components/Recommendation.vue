@@ -206,24 +206,6 @@ export default {
     for (var i = 0; i < this.answer.length; i++) { 
       this.$store.state.result[i]=this.answer[i];
     }
-    //
-    this.$store.commit("updateRate",[0.3,0.4]);
-      var myObj = [
-       {
-        'name':'中石油',
-        'ratio':0.5
-       },
-       {
-        'name':"中石化",
-        'ratio':0.4
-       },
-       {
-        'name':"其他",
-        'ratio':0.1
-       }
-       ];
-        this.$store.commit("updateFund",myObj);
-      this.$router.push('/exhibition');
     //把result发给后端，根据返回结果：1转移到组合展示页，2弹出警告
     this.$http.post(this.$store.state.basicUrl + 'recommendate/?token=' + this.$store.state.token,{'questionnaire': 
         this.$store.state.result[0] + ',' +

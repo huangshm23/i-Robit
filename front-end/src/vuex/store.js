@@ -45,6 +45,7 @@ const store2 = new Vuex.Store({
         funds:[],
         rate:0,
         risk_factor:0
+        baiscUrl:'http://178.128.115.175:80/'
     },
     getters:{
         getResult:function(state){

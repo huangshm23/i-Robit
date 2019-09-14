@@ -217,12 +217,12 @@ export default {
         'name':"中石化",
         'ratio':0.4
        },
+       {
+        'name':"其他",
+        'ratio':0.1
+       }
        ];
         this.$store.commit("updateFund",myObj);
-      var te = this.$store.state.fund;
-      var te1 = this.$store.state.rate;
-      var te2 = this.$store.state.risk_factor;
-      console.log(te, te1, te2);
       this.$router.push('/exhibition');
     //把result发给后端，根据返回结果：1转移到组合展示页，2弹出警告
     this.$http.post(this.$store.state.basicUrl + 'recommendate/?token=' + this.$store.state.token,{'questionnaire': 

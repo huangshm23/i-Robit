@@ -8,9 +8,6 @@ const store = new Vuex.Store({
         is_login:false,
         result:['A','A','A','A','A','A','A','A','A','A','A','A','A'],
         token:"",
-        funds:[{ }],
-        rate:0,
-        risk_factor:0,
         basicUrl:'http://178.128.115.175:80/',
         combination:{
             recommendation:[
@@ -42,12 +39,12 @@ const store = new Vuex.Store({
         },
         updateFund:function(state,n){
             for (var x in n) {
-                state.funds[x] = n[x];
+                state.combination.recommendation[x] = n[x];
               }
         },
         updateRate:function(state,n){
-            state.rate=n[0]
-            state.risk_factor = n[1]
+            state.combination.expected_rate=n[0]
+            state.combination.risk_factor = n[1]
         }
     }
 })
